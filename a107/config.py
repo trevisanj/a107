@@ -5,7 +5,7 @@ Gear for working with configuration files
 """
 
 from configobj import ConfigObj
-import a107
+from .loggingaux import get_python_logger
 import os
 import re
 
@@ -88,7 +88,7 @@ def get_config_obj(filename):
     """Reads/creates filename at user **home** folder and returns a AAConfigObj object"""
 
     if not filename.startswith("."):
-        a107.get_python_logger().warning("Configuration filename '{}' does not start with a '.'".format(filename))
+        get_python_logger().warning("Configuration filename '{}' does not start with a '.'".format(filename))
 
     path_ = os.path.join(os.path.expanduser("~"), filename)
     return AAConfigObj(path_, encoding="UTF8")

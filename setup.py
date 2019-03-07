@@ -29,12 +29,9 @@ setup(
     author='Julio Trevisan',
     author_email='juliotrevisan@gmail.com',
     url='https://github.com/trevisanj/a107',
-    keywords= ['astronomy', 'pyqt', 'pyqt5', 'debugging', 'introspection', 'file', 'search',
-               'conversion', 'datetime', 'config', 'litedb', 'matplotlib', 'text', 'cryptography',
+    keywords= ['debugging', 'introspection', 'file', 'search',
+               'conversion', 'datetime', 'config', 'text',
                ],
     install_requires=[],
     scripts=scripts
 )
-
-
-# TODO later install_requires=['numpy', 'matplotlib', 'pyqt5'],  # matplotlib never gets installed correctly by pip, but anyway...
