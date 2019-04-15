@@ -37,14 +37,14 @@ class AAConfigObj(ConfigObj):
 
         return obj, path_
 
-    def get_item(self, path_, default):
+    def get(self, path_, default):
         """Return item or default. In the latter, change file to have default.
 
-        Arguments:
-            path_ -- path to item in section/subsection structure. May be either:
-                     ["section", "subsection", ...] or
-                     "[/]section/subsection/..."  (leading slash is tolerated)
-            default -- value to return if item is not found
+        Args:
+            path_: path to item in section/subsection structure. May be either:
+                   ["section", "subsection", ...] or
+                   "[/]section/subsection/..."  (leading slash is tolerated)
+            default: value to return if item is not found
 
         Argument 'default' is also used to determine the type of the data to return:
 
@@ -58,8 +58,10 @@ class AAConfigObj(ConfigObj):
         key = path_[-1]
 
         if key not in section:
-            self.set_item(path_, default)
+            self.set(path_, default)
             return default
+
+        # TODO eval() is a serious security breach!!!
 
         xvalue = section[key]
         type_ = type(default)
@@ -77,11 +79,12 @@ class AAConfigObj(ConfigObj):
         return value
 
 
-    def set_item(self, path_, value):
-        """Sets item and automatically saves file"""
+    def set(self, path_, value):
+        """Sets item and automatically saves file. Returns value for convenience"""
         section, path_ = self._get_section(path_)
         section[path_[-1]] = repr(value)
         self.write()
+        return value
 
 
 def get_config_obj(filename):

@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="198f81f3-5a7e-4d4a-8456-85fd4dd3cfab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/a107/conversion.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/datetimefunc.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/introspection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/loggingaux.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/misc.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/parts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/search.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a107/textinterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a107.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a107/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a107/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/introspection.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/introspection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/misc.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,20 +18,24 @@
     <session id="824433543">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.28" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.30" value="1" />
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.30" value="2" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.39" value="1" />
           <entry key="project.open.time.50" value="2" />
+          <entry key="project.open.time.55" value="1" />
           <entry key="project.open.time.57" value="1" />
           <entry key="project.open.time.66" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -49,7 +43,7 @@
           <entry key="LICENSE" value="1" />
           <entry key="in" value="2" />
           <entry key="md" value="3" />
-          <entry key="py" value="18" />
+          <entry key="py" value="19" />
           <entry key="rst" value="2" />
           <entry key="sh" value="3" />
         </counts>
@@ -58,7 +52,7 @@
         <counts>
           <entry key="Markdown" value="3" />
           <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="18" />
+          <entry key="Python" value="19" />
           <entry key="ReST" value="2" />
         </counts>
       </usages-collector>
@@ -67,7 +61,7 @@
           <entry key="dummy" value="3" />
           <entry key="in" value="1" />
           <entry key="md" value="425" />
-          <entry key="py" value="831" />
+          <entry key="py" value="980" />
           <entry key="rst" value="121" />
           <entry key="sh" value="3" />
         </counts>
@@ -76,7 +70,7 @@
         <counts>
           <entry key="Markdown" value="425" />
           <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Python" value="831" />
+          <entry key="Python" value="980" />
           <entry key="ReST" value="121" />
         </counts>
       </usages-collector>
@@ -85,17 +79,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/a107/datetimefunc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#27#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a107/conversion.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -108,24 +91,40 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a107/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+            <state relative-caret-position="375">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a107/introspection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+            <state relative-caret-position="105">
+              <caret line="12" column="65" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
+              <folding>
+                <element signature="e#59#68#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a107/misc.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/a107/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -200,17 +199,18 @@
         <option value="$PROJECT_DIR$/a107/datetimefunc.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/a107/config.py" />
         <option value="$PROJECT_DIR$/a107/loggingaux.py" />
         <option value="$PROJECT_DIR$/a107/tabulateme.py" />
         <option value="$PROJECT_DIR$/a107/conversion.py" />
-        <option value="$PROJECT_DIR$/a107/__init__.py" />
         <option value="$PROJECT_DIR$/a107/introspection.py" />
+        <option value="$PROJECT_DIR$/a107/__init__.py" />
+        <option value="$PROJECT_DIR$/a107/misc.py" />
+        <option value="$PROJECT_DIR$/a107/config.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="27" />
+    <option name="y" value="29" />
     <option name="width" value="1335" />
     <option name="height" value="712" />
   </component>
@@ -247,28 +247,6 @@
               <item name="a107" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="a107" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="a107" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6.1 (~/Programs/miniconda3/bin/python3.6) &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="a107" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6.1 (~/Programs/miniconda3/bin/python3.6) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="a107" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6.1 (~/Programs/miniconda3/bin/python3.6) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="a107" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -312,14 +290,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1335" height="712" extended-state="0" />
+    <frame x="0" y="29" width="1335" height="712" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24303988" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32980332" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -397,13 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a107/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="90" column="8" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/a107/tabulateme.py" />
     <entry file="file://$PROJECT_DIR$/a107/datetimefunc.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -421,8 +392,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a107/misc.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/a107/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a107/introspection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="65" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
+          <folding>
+            <element signature="e#59#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -450,17 +435,17 @@
     <entry file="file://$PROJECT_DIR$/a107/parts.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/a107/__init__.py">
+    <entry file="file://$PROJECT_DIR$/a107/misc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        <state relative-caret-position="45">
+          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a107/introspection.py">
+    <entry file="file://$PROJECT_DIR$/a107/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        <state relative-caret-position="356">
+          <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
         </state>
       </provider>
     </entry>

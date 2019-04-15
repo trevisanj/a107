@@ -23,4 +23,5 @@ from .loggingaux import *
 from .search import *
 from .textinterface import *
 from .introspection import *
+from .misc import *
 del logging
