@@ -99,7 +99,9 @@ def chunk_string(string, length):
 
 def ordinal_suffix(i):
     """Returns 'st', 'nd', or 'rd'."""
-    return 'st' if i == 1 else 'nd' if i == 2 else 'rd' if i == 3 else 'th'
+    v = str(i)
+    return "st" if v.endswith("1") \
+            else "nd" if v.endswith("2") else "rd" if v.endswith("3") else "th"
 
 
 def seconds2str(seconds):

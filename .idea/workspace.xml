@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="198f81f3-5a7e-4d4a-8456-85fd4dd3cfab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/introspection.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/introspection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/misc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/conversion.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +15,7 @@
     <session id="824433543">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.15" value="1" />
@@ -29,13 +26,15 @@
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.3" value="2" />
           <entry key="project.open.time.30" value="2" />
+          <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.39" value="1" />
           <entry key="project.open.time.50" value="2" />
+          <entry key="project.open.time.51" value="1" />
           <entry key="project.open.time.55" value="1" />
           <entry key="project.open.time.57" value="1" />
           <entry key="project.open.time.66" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.opened" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -61,7 +60,7 @@
           <entry key="dummy" value="3" />
           <entry key="in" value="1" />
           <entry key="md" value="425" />
-          <entry key="py" value="980" />
+          <entry key="py" value="995" />
           <entry key="rst" value="121" />
           <entry key="sh" value="3" />
         </counts>
@@ -70,7 +69,7 @@
         <counts>
           <entry key="Markdown" value="425" />
           <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Python" value="980" />
+          <entry key="Python" value="995" />
           <entry key="ReST" value="121" />
         </counts>
       </usages-collector>
@@ -79,11 +78,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/a107/conversion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3555">
-              <caret line="238" selection-start-line="238" selection-end-line="238" />
+            <state relative-caret-position="356">
+              <caret line="102" column="36" selection-start-line="102" selection-start-column="36" selection-end-line="102" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -113,15 +112,15 @@
         <entry file="file://$PROJECT_DIR$/a107/misc.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+              <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a107/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
+            <state relative-caret-position="900">
               <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
             </state>
           </provider>
@@ -201,11 +200,11 @@
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/a107/loggingaux.py" />
         <option value="$PROJECT_DIR$/a107/tabulateme.py" />
-        <option value="$PROJECT_DIR$/a107/conversion.py" />
         <option value="$PROJECT_DIR$/a107/introspection.py" />
         <option value="$PROJECT_DIR$/a107/__init__.py" />
         <option value="$PROJECT_DIR$/a107/misc.py" />
         <option value="$PROJECT_DIR$/a107/config.py" />
+        <option value="$PROJECT_DIR$/a107/conversion.py" />
       </list>
     </option>
   </component>
@@ -231,6 +230,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,7 +252,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -377,18 +376,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/a107/tabulateme.py" />
     <entry file="file://$PROJECT_DIR$/a107/datetimefunc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#27#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/a107/conversion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3555">
-          <caret line="238" selection-start-line="238" selection-end-line="238" />
+        <state relative-caret-position="356">
+          <caret line="102" column="36" selection-start-line="102" selection-start-column="36" selection-end-line="102" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -406,6 +399,20 @@
           <folding>
             <element signature="e#59#68#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a107/misc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a107/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -434,20 +441,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/a107/parts.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/a107/misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/a107/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
-        </state>
-      </provider>
     </entry>
   </component>
 </project>
