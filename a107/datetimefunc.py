@@ -5,7 +5,7 @@ import time
 import datetime
 
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
-           "time2seconds", "seconds2time", "to_datetime"]
+           "time2seconds", "seconds2time", "to_datetime", "str2ts"]
 
 
 _FMT = "%Y-%m-%d %H:%M"  # Date & time format
@@ -50,6 +50,10 @@ def ts2str(s, flagSeconds=True):
     """Shortcut to dt2str(ts2dt(s))."""
     return dt2str(ts2dt(s), flagSeconds) if s > 0 else ""
 
+
+def str2ts(s):
+    """Converts str to timestamp."""
+    return dt2ts(str2dt(s))
 
 def time2seconds(t):
     """Returns seconds since 0h00."""
