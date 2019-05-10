@@ -1,10 +1,11 @@
 import textwrap
 import sys
+import random
 
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "fmt_error", "print_error", "menu", "format_progress", "markdown_table",
            "format_exe_info", "format_box", "yesno", "rest_table", "expand_multirow_data",
-           "question"]
+           "question", "format_slug"]
 
 
 NIND = 2  # Number of spaces per indentation level
@@ -12,6 +13,41 @@ NIND = 2  # Number of spaces per indentation level
 # #################################################################################################
 # # Text interface routines - routines that are useful for building a text interface
 
+
+def format_slug(s, eye=None):
+    """
+    Encloses string inside the guts of an ASCII-art [1] slug.
+    
+    Args:
+        s: str
+        eye: 0, 1, 2, or None. If None, will be random.
+
+    Returns:
+        list
+
+
+    References:
+        [1] http://ascii.co.uk/art/snail
+    """
+
+
+    n = len(s)
+    a, b, c, d = (x*n for x in '  _"')
+    s_ = s  # .replace(" ", "-")
+
+    if eye is None:
+        eye = random.randint(0, 2)
+
+    z = "." if eye == 0 else "o" if eye == 1 else "O"
+    k = " "
+    res = [
+    f'    {a}{z}  {z}',
+    f'     {b}\\/ ',
+    f'   _{c}_/|',
+    f' /´{k}{s_}{k}´/ ',
+    f'/+""{d}"´  ',
+    ]
+    return res
 
 def format_underline(s, char="=", indents=0):
     """
