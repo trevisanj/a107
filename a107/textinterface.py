@@ -49,6 +49,7 @@ def format_slug(s, eye=None):
     ]
     return res
 
+
 def format_underline(s, char="=", indents=0):
     """
     Traces a dashed line below string

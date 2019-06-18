@@ -22,7 +22,7 @@ setup(
     name='a107',
     packages=find_packages(),
     include_package_data=True,
-    version='18.10.17.0',
+    version='19.06.18.0',
     license='GNU GPLv3',
     platforms='any',
     description='A multi-purpose API in Python',

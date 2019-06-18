@@ -3,9 +3,11 @@
 import math
 import time
 import datetime
+import dateutil
 
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
-           "time2seconds", "seconds2time", "to_datetime", "str2ts"]
+           "time2seconds", "seconds2time", "to_datetime", "str2ts", "iso8601_to_float",
+           "float_to_iso8601"]
 
 
 _FMT = "%Y-%m-%d %H:%M"  # Date & time format
@@ -97,3 +99,11 @@ def to_datetime(arg):
         raise TypeError("Wrong type for argument 'arg': {}".format(arg.__class__.__name__))
 
     return arg
+
+
+def iso8601_to_float(s):
+    return dateutil.parser.parse(s).timestamp()
+
+
+def float_to_iso8601(w):
+    return datetime.datetime.utcfromtimestamp(w).isoformat()
