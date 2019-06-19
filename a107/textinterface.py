@@ -1,11 +1,13 @@
 import textwrap
 import sys
 import random
+import os
+from colored import fg, bg, attr
 
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "fmt_error", "print_error", "menu", "format_progress", "markdown_table",
            "format_exe_info", "format_box", "yesno", "rest_table", "expand_multirow_data",
-           "question", "format_slug"]
+           "question", "format_slug", "print_file"]
 
 
 NIND = 2  # Number of spaces per indentation level
@@ -512,3 +514,22 @@ def rest_table(data, headers):
 
     ret.append(hl0)
     return ret
+
+
+def print_file(path_, width=80):
+    """Prints File.
+
+    Args:
+        path_: path to file
+        width:
+
+    """
+    printb = lambda s: print("{}{}{}".format(fg("blue"), s.strip(), attr("reset")))
+    printbb = lambda s: print("{}{}{}{}".format(fg("blue"), attr("bold"), s.strip(), attr("reset")))
+    bname = os.path.basename(path_)
+    n = len(bname)
+    printbb(f"--|{bname}|" + "-" * (width - n - 4))
+    with open(path_, "r") as f:
+        for line in f:
+            printb(line)
+    printbb("-" * width)

@@ -22,7 +22,7 @@ setup(
     name='a107',
     packages=find_packages(),
     include_package_data=True,
-    version='19.06.18.0',
+    version='19.06.1.0',
     license='GNU GPLv3',
     platforms='any',
     description='A multi-purpose API in Python',
@@ -32,6 +32,6 @@ setup(
     keywords= ['debugging', 'introspection', 'file', 'search',
                'conversion', 'datetime', 'config', 'text',
                ],
-    install_requires=[],
+    install_requires=["colored"],
     scripts=scripts
 )
