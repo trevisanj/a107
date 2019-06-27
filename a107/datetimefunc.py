@@ -34,7 +34,12 @@ def dt2ts(dt):
     # except ValueError:
     #   return 0
 
-ts2dt = datetime.datetime.fromtimestamp
+def ts2dt(ts, flag_microseconds=True):
+    """Converts timestamp to a datetime, with option of dropping the microseconds."""
+    if not flag_microseconds:
+        ts = int(ts)
+    return datetime.datetime.fromtimestamp(ts)
+
 
 def dt2str(dt, flagSeconds=True):
     """Converts datetime object to str if not yet an str."""

@@ -22,7 +22,7 @@ setup(
     name='a107',
     packages=find_packages(),
     include_package_data=True,
-    version='19.06.1.0',
+    version='19.06.27.0',
     license='GNU GPLv3',
     platforms='any',
     description='A multi-purpose API in Python',
@@ -30,7 +30,7 @@ setup(
     author_email='juliotrevisan@gmail.com',
     url='https://github.com/trevisanj/a107',
     keywords= ['debugging', 'introspection', 'file', 'search',
-               'conversion', 'datetime', 'config', 'text',
+               'conversion', 'datetime', 'config', 'text', 'cryptography'
                ],
     install_requires=["colored"],
     scripts=scripts
