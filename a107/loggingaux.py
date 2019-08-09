@@ -27,7 +27,7 @@ def get_python_logger():
     import a107
     global _python_logger
     if _python_logger is None:
-        fn = "a107.log"
+        fn = a107.fn_log
         l = logging.Logger("a107", level=a107.logging_level)
         if a107.flag_log_file:
             add_file_handler(l, fn)

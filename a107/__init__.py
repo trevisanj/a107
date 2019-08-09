@@ -8,9 +8,11 @@
 # Set this to make the python logger to log to the console. Note: will have no
 # effect if changed after the first call to get_python_logger()
 flag_log_console = True
-# Set this to make the python logger to log to a file named "python.log".
+# Set this to make the python logger to log to a file named "<fn_log>".
 # Note: will have no effect if changed after the first call to get_python_logger()
 flag_log_file = False
+# log filename
+fn_log = "a107.log"
 # Logging level for the python logger
 import logging
 logging_level = logging.INFO
