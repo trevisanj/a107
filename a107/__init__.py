@@ -26,4 +26,5 @@ from .search import *
 from .textinterface import *
 from .introspection import *
 from .misc import *
+from .console import *
 del logging

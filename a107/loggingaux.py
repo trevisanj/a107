@@ -2,8 +2,8 @@
 
 
 __all__ = [
-"get_python_logger", "add_file_handler",
-"LogTwo", "SmartFormatter", "str_exc"]
+"get_python_logger", "add_file_handler", "reset_logger",
+"LogTwo", "SmartFormatter", "str_exc",]
 
 
 import logging
@@ -13,7 +13,9 @@ from .parts import *
 import datetime
 import traceback
 
-
+def reset_logger():
+    global _python_logger
+    _python_logger = None
 
 _python_logger = None
 _fmtr = logging.Formatter('[%(levelname)-8s] %(message)s')
@@ -38,7 +40,7 @@ def get_python_logger():
         _python_logger = l
         for line in a107.format_box("a107 logging session started @ {}".format(a107.now_str())):
             l.info(line)
-        if a107.flag_log_file:
+        if a107.flag_log_console:
             l.info("$ Logging to console $")
         if a107.flag_log_file:
             l.info("$ Logging to file '{}' $".format(fn))
@@ -60,17 +62,17 @@ def add_file_handler(logger, logFilename=None):
 
 @froze_it
 class LogTwo(object):
-  """Logs messages to both stdout and file."""
-  def __init__(self, filename):
-    self.terminal = sys.stdout
-    self.log = open(filename, "w")
+    """Logs messages to both stdout and file."""
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "w")
 
-  def write(self, message):
-    self.terminal.write(message)
-    self.log.write(message)
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
 
-  def close(self):
-      self.log.close()
+    def close(self):
+        self.log.close()
 
 
 class SmartFormatter(RawDescriptionHelpFormatter):

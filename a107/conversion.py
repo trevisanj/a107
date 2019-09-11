@@ -3,8 +3,8 @@
 
 __all__ = [
 "str2bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
-"module_to_dict", "unicode_to_greek",
-"greek_to_unicode", "make_code_readable", "int_to_superscript"]
+"module2dict", "unicode2greek",
+"greek2unicode", "make_code_readable", "int2superscript"]
 
 
 import math
@@ -124,7 +124,7 @@ def seconds2str(seconds):
         return "{0:.3g}s".format(s)
 
 
-def module_to_dict(module):
+def module2dict(module):
     """Creates a dictionary whose keys are module.__all__
 
     Returns: {"(attribute name)": attribute, ...}
@@ -133,8 +133,6 @@ def module_to_dict(module):
     lot = [(key, module.__getattribute__(key)) for key in module.__all__]
     ret = dict(lot)
     return ret
-
-
 
 # **        ****                ******        ****                ******        ****
 #   **    **    ******    ******      **    **    ******    ******      **    **    ******    ******
@@ -197,26 +195,26 @@ _UNICODE_GREEK = (
 ('\u03C9', 'omega'),
 )
 
-_UNICODE_TO_GREEK = dict(_UNICODE_GREEK)
-_GREEK_TO_UNICODE = dict([(x[1], x[0]) for x in _UNICODE_GREEK])
+_UNICODE2GREEK = dict(_UNICODE_GREEK)
+_GREEK2UNICODE = dict([(x[1], x[0]) for x in _UNICODE_GREEK])
 
-def unicode_to_greek(s):
+def unicode2greek(s):
     """Converts unicode single code, e.g., '\u03A3' to Greek letter name, e.g. 'Sigma'"""
 
     # "?" is the "zero-element"
     if s == "?":
         return s
 
-    return _UNICODE_TO_GREEK[s]
+    return _UNICODE2GREEK[s]
 
-def greek_to_unicode(s):
+def greek2unicode(s):
     """Converts Greek letter name, e.g., 'Sigma', to unicode character, e.g. '\u03A3' """
 
     # "?" is the "zero-element"
     if s == "?":
         return s
 
-    return _GREEK_TO_UNICODE[s]
+    return _GREEK2UNICODE[s]
 
 
 
@@ -234,7 +232,7 @@ _INT_TO_SUPERSCRIPT = {
  9: "\u2079",
 }
 
-def int_to_superscript(i):
-    """int_to_superscript(i) --> str"""
+def int2superscript(i):
+    """int2superscript(i) --> str"""
 
     return "".join((_INT_TO_SUPERSCRIPT[int(ch)] for ch in str(i)))

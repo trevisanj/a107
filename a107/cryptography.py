@@ -9,8 +9,8 @@ __all__ = ["encrypt_file", "decrypt_file", "get_key"]
 def encrypt_file(key, filename_in, filename_out):
     chunk_size = 64*1024
     file_size = bytes("{:016}".format(os.path.getsize(filename_in)), "ASCII")
-    # input vector
 
+    # input vector
     iv = bytes(bytearray((random.randint(0, 0xFF) for _ in range(16))))
 
     encryptor = AES.new(key, AES.MODE_CBC, iv)

@@ -6,10 +6,8 @@ __all__ = [
 "index_nearest", "BSearch", "BSearchRound", "BSearchCeil", "BSearchFloor", "FindNotNaNBackwards", ]
 
 
-
 from bisect import *
 import numpy as np
-
 
 
 def index_nearest(array, value):
@@ -27,7 +25,6 @@ def index_nearest(array, value):
     """
     idx = (np.abs(array-value)).argmin()
     return idx
-
 
 
 def BSearch(a, x, lo=0, hi=None):

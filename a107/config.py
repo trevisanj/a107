@@ -38,7 +38,7 @@ class AAConfigObj(ConfigObj):
         return obj, path_
 
     def get(self, path_, default):
-        """Return item or default. In the latter, change file to have default.
+        """Return item or default. In the latter, changes file to have default.
 
         Args:
             path_: path to item in section/subsection structure. May be either:
