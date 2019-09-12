@@ -246,7 +246,7 @@ class Console(object):
             else:
                 ret = method(*parts[1:])
 
-        except ConsoleException as e:
+        except ConsoleError as e:
             raise
         except Exception as e:
             a107.get_python_logger().exception("Error processing statement")
@@ -277,10 +277,10 @@ def _myprint(x):
     print("\n".join(textwrap.wrap(x, 80)))
 
 
-class ConsoleException(Exception):
+class ConsoleError(Exception):
     """Base class for all exceptions that are raised by Console."""
     pass
 
-class InvalidMethodError(ConsoleException):
+class InvalidMethodError(ConsoleError):
     """Raised at invalid method call."""
     pass
