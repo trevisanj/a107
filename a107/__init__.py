@@ -27,4 +27,5 @@ from .textinterface import *
 from .introspection import *
 from .misc import *
 from .console import *
+from .fileio import *
 del logging
