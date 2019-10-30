@@ -2,7 +2,7 @@
 
 
 __all__ = [
-"str2bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
+"str2bool", "to_bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
 "module2dict", "unicode2greek",
 "greek2unicode", "make_code_readable", "int2superscript"]
 
@@ -21,6 +21,20 @@ def str2bool(s):
     if s == "T":
         return True
     elif s == "F":
+        return False
+    raise ValueError("I don't understand '{0!s}' as a logical value".format(s))
+
+
+def to_bool(s):
+    """More clever and slower. Understands T, TRUE, ON, F, FALSE, OFF. Case insensitive."""
+    if isinstance(s, bool):
+        return s
+    if isinstance(s, (int, float)):
+        return s != 0
+    s = s.upper()
+    if s in ("T", "TRUE", "ON", "1"):
+        return True
+    elif s in ("F", "FALSE", "OFF", "0"):
         return False
     raise ValueError("I don't understand '{0!s}' as a logical value".format(s))
 

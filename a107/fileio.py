@@ -170,10 +170,14 @@ def new_filename(prefix, extension=None, flag_minimal=True):
     prefix_ = prefix[:-1] if prefix.endswith("-") else prefix
 
     i = -1
+    ret = None
     while True:
         if i == -1:
             if flag_minimal:
                 ret = "{}.{}".format(prefix_, extension) if extension else prefix_
+            else:
+                i += 1
+                continue
         else:
             ret = fmt.format(prefix_, i, extension)
 

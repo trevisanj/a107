@@ -107,7 +107,7 @@ class Console(object):
     Args:
         slug: be kind and give me a slug
         cmc: Commands or descendant thereof instance
-        data_dir: data directory. This is the place where it read and write file "client-history"
+        data_dir: data directory. This is the place where it read and write file "{slug}.history"
         description:
     """
 
@@ -143,7 +143,7 @@ class Console(object):
         self.running = False
 
     def run(self):
-        """Will run client and automatically exit the program.
+        """Will run console and automatically exit the program.
 
         Exits because it registers handlers to intercept Ctrl+C and Ctrl+Z.
         """
@@ -180,6 +180,7 @@ class Console(object):
                     _yoda("Use the force.")
                 else:
                     try:
+                        import tabulate
                         ret = self.execute(st)
                         _yoda("Happy I am.", True)
                         prdef = False
@@ -284,3 +285,9 @@ class ConsoleError(Exception):
 class InvalidMethodError(ConsoleError):
     """Raised at invalid method call."""
     pass
+
+
+if __name__ == "__main__":
+    import a107
+    commands = a107.ConsoleCommands()
+    console = a107.Console(cmd=commands)
