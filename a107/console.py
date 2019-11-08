@@ -256,7 +256,9 @@ class Console(object):
             except AttributeError:
                 ret = self._process_invalid_method(parts)
             else:
-                ret = method(*parts[1:])
+                # Some basic conversion
+                parts_ = [None if x == "None" else x for x in parts]
+                ret = method(*parts_[1:])
 
         except ConsoleError as e:
             raise
