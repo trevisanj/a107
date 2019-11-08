@@ -109,18 +109,29 @@ class Console(object):
         cmc: Commands or descendant thereof instance
         data_dir: data directory. This is the place where it read and write file "{slug}.history"
         description:
+        flag_cfg: whether to try to use config file
     """
+
+    @property
+    def config_path(self):
+        return os.path.join(self.data_dir, self.slug+".cfg")
 
     @property
     def history_path(self):
         return os.path.join(self.data_dir, f"{self.slug}.history")
 
-    def __init__(self, slug, cmd, data_dir=".", description=""):
+    def __init__(self, slug, cmd, data_dir=".", description="", flag_cfg=False):
         self.slug = slug
         self.data_dir = data_dir
         self.description = description
         self.cmd = cmd
+        self.flag_cfg = flag_cfg
         cmd.console = self
+
+        # pre-startup
+        self.cfg = None
+        if flag_cfg:
+            cfg = self.cfg = a107.AAConfigObj(self.config_path)
 
         self.running = False
 
