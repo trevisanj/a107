@@ -3,11 +3,12 @@
 
 __all__ = [
 "get_python_logger", "add_file_handler", "reset_logger",
-"LogTwo", "SmartFormatter", "str_exc",]
+"LogTwo", "SmartFormatter", "str_exc", "aargh"]
 
 
 import logging
 import sys
+import argparse
 from argparse import *
 from .parts import *
 import datetime
@@ -100,3 +101,16 @@ class SmartFormatter(RawDescriptionHelpFormatter):
 def str_exc(E):
     """Generates a string from an Exception"""
     return "{0!s}: {1!s}".format(E.__class__.__name__, str(E))
+
+
+def aargh(doc, main):
+    """
+    Command-line interface with argument parser without parameters.
+
+    Arguments:
+
+    """
+    parser = argparse.ArgumentParser(description=doc, formatter_class=SmartFormatter)
+    args = parser.parse_args()
+    main()
+
