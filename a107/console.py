@@ -15,7 +15,7 @@ import inspect
 import textwrap
 import a107
 
-__all__ = ["ConsoleCommands", "Console"]
+__all__ = ["ConsoleCommands", "Console", "ConsoleError"]
 
 COLOR_OKGREEN = fg("green")
 COLOR_FAIL = fg("red")
@@ -184,6 +184,7 @@ class Console(object):
             self.running = True
             while self.running:
                 st = input("{}{}{}>".format(COLOR_INPUT, attr("bold"), self.slug))
+                print(attr("reset"), end="")
 
                 if not st:
                     pass
@@ -195,7 +196,9 @@ class Console(object):
                         ret = self.execute(st)
                         _yoda("Happy I am.", True)
                         prdef = False
-                        if isinstance(ret, str):
+                        if ret is None:
+                            pass
+                        elif isinstance(ret, str):
                             print(ret)
                         # Tries to detect "tabulate-like" (rows, headers) arguments
                         elif isinstance(ret, tuple) and len(ret) == 2 and isinstance(ret[0], list) and isinstance(ret[1], list):
@@ -292,7 +295,9 @@ def _myprint(x):
 
 
 class ConsoleError(Exception):
-    """Base class for all exceptions that are raised by Console."""
+    """Base class for all exceptions that are raised by Console.
+
+    You can raise this if you don't want your error to print the traceback."""
     pass
 
 class InvalidMethodError(ConsoleError):

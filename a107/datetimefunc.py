@@ -1,4 +1,4 @@
-"""Date/time utilities"""
+"""Date/time utilities, mostly all sorts of conversions"""
 
 import math
 import time
@@ -7,12 +7,13 @@ import dateutil
 
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
            "time2seconds", "seconds2time", "to_datetime", "str2ts", "iso8601_to_float",
-           "float_to_iso8601"]
+           "float_to_iso8601",]
 
 
 _FMT = "%Y-%m-%d %H:%M"  # Date & time format
 _FMTS = "%Y-%m-%d %H:%M:%S"  # Date & time format with seconds
-_FMT0 = "%Y-%m-%d"  # Date & time format with seconds
+_FMT0 = "%Y-%m-%d"  # Date format only
+_FMT1 = "%Y%m%d" # Date format, compacted
 
 
 def now_str():
@@ -45,12 +46,13 @@ def dt2str(dt, flagSeconds=True):
     """Converts datetime object to str if not yet an str."""
     if isinstance(dt, str):
         return dt
-    return dt.strftime(_FMTS if flagSeconds else _FMT)
+    return dt.strftime(_FMT0 if isinstance(dt, datetime.date) else _FMTS if flagSeconds else _FMT)
 
 
 def str2dt(s):
     """Works with time with/without seconds."""
-    return datetime.datetime.strptime(s, _FMTS if s.count(":") == 2 else _FMT if s.count(":") == 1 else _FMT0)
+    return datetime.datetime.strptime(s, _FMT1 if len(s) == 8 else
+        _FMTS if s.count(":") == 2 else _FMT if s.count(":") == 1 else _FMT0)
 
 
 def ts2str(s, flagSeconds=True):

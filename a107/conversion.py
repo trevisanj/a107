@@ -250,3 +250,4 @@ def int2superscript(i):
     """int2superscript(i) --> str"""
 
     return "".join((_INT_TO_SUPERSCRIPT[int(ch)] for ch in str(i)))
+

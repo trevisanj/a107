@@ -1,3 +1,5 @@
+"""Text interface routines - input/output for the terminal."""
+
 import textwrap
 import sys
 import random
@@ -6,15 +8,11 @@ from colored import fg, bg, attr
 
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "fmt_error", "print_error", "menu", "format_progress", "markdown_table",
-           "format_exe_info", "format_box", "yesno", "rest_table", "expand_multirow_data",
-           "question", "format_slug", "print_file"]
+           "format_box", "yesno", "rest_table", "expand_multirow_data",
+           "question", "format_slug", "print_file", "aargh"]
 
 
 NIND = 2  # Number of spaces per indentation level
-
-# #################################################################################################
-# # Text interface routines - routines that are useful for building a text interface
-
 
 def format_slug(s, eye=None):
     """
@@ -334,83 +332,6 @@ def format_progress(i, n):
 
 
 # #################################################################################################
-# # Formatting for listing the programs available
-
-
-def _format_exe_info(py_len, exeinfo, format, indlevel):
-    """Renders ExeInfo object in specified format"""
-    ret = []
-    ind = " " * indlevel * NIND if format.startswith("text") else ""
-    if format == "markdown-list":
-        for si in exeinfo:
-            ret.append("  - `{0!s}`: {1!s}".format(si.filename, si.description))
-    if format == "rest-list":
-        for si in exeinfo:
-            ret.append("* ``{0!s}``: {1!s}".format(si.filename, si.description))
-    elif format == "markdown-table":
-        mask = "%-{0:d}s | %s".format(py_len+2 )
-        ret.append(mask % ("Script name", "Purpose"))
-        ret.append("-" * (py_len + 3) + "|" + "-" * 10)
-        for si in exeinfo:
-            ret.append(mask % ("`{0!s}`".format(si.filename), si.description))
-    elif format == "text":
-        sbc = 1  # spaces between columns
-        for si in exeinfo:
-            ss = textwrap.wrap(si.description, 79 - py_len - sbc - indlevel*NIND)
-            for i, s in enumerate(ss):
-                if i == 0:
-                    filecolumn = si.filename + " " + ("." * (py_len - len(si.filename)))
-                else:
-                    filecolumn = " " * (py_len + 1)
-
-                ret.append("{}{}{}{}".format(ind, filecolumn, " "*sbc, s))
-    ret.append("")
-    return ret
-
-
-def format_exe_info(exeinfo, format="text", indlevel=0):
-    """
-    Generates listing of all Python scripts available as command-line programs.
-
-    Args:
-      exeinfo -- list of ExeInfo objects
-
-      format -- One of the options below:
-        "text" -- generates plain text for printing at the console
-        "markdown-list" -- generates MarkDown as list
-        "markdown-table" -- generates MarkDown as tables
-        "rest-list" -- generates reStructuredText as lists
-
-      indents -- indentation level ("text" format only)
-
-    Returns: (list of strings, maximum filename size)
-      list of strings -- can be joined with a "\n"
-      maximum filename size
-    """
-
-    py_len = max([len(si.filename) for si in exeinfo])
-
-    sisi_gra = [si for si in exeinfo if si.flag_gui == True]
-    sisi_cmd = [si for si in exeinfo if si.flag_gui == False]
-    sisi_none = [si for si in exeinfo if si.flag_gui is None]
-
-    def get_title(x):
-        return format_h4(x, format, indlevel*NIND) + [""]
-
-    ret = []
-    if len(sisi_gra) > 0:
-        ret.extend(get_title("Graphical applications"))
-        ret.extend(_format_exe_info(py_len, sisi_gra, format, indlevel + 1))
-    if len(sisi_cmd) > 0:
-        ret.extend(get_title("Command-line tools", ))
-        ret.extend(_format_exe_info(py_len, sisi_cmd, format, indlevel + 1))
-    if len(sisi_none) > 0:
-        ret.extend(_format_exe_info(py_len, sisi_none, format, indlevel + 1))
-
-    return ret, py_len
-
-
-# #################################################################################################
 # # Text table functions
 
 def markdown_table(data, headers):
@@ -426,11 +347,11 @@ def markdown_table(data, headers):
     maxx = [max(ll) for ll in zip(maxx, [len(x) for x in headers])]
     mask = " | ".join(["%-{0:d}s".format(n) for n in maxx])
 
-    ret = [mask % headers]
+    ret = [mask % tuple(headers)]
 
     ret.append(" | ".join(["-"*n for n in maxx]))
     for line in data:
-        ret.append(mask % line)
+        ret.append(mask % tuple(line))
     return ret
 
 
@@ -467,7 +388,6 @@ def expand_multirow_data(data):
         i0 += row_height
 
     return new_data, row_heights
-
 
 
 def rest_table(data, headers):
@@ -533,4 +453,16 @@ def print_file(path_, width=80):
         for line in f:
             printb(line)
     printbb("-" * width)
+
+
+def aargh(doc, main):
+    """
+    Command-line interface with argument parser without parameters.
+
+    Arguments:
+
+    """
+    parser = argparse.ArgumentParser(description=doc, formatter_class=SmartFormatter)
+    args = parser.parse_args()
+    main()
 

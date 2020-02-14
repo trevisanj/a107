@@ -32,6 +32,6 @@ setup(
     keywords= ['debugging', 'introspection', 'file', 'search',
                'conversion', 'datetime', 'config', 'text', 'cryptography'
                ],
-    install_requires=["colored"],
+    install_requires=["colored", "numpy"],
     scripts=scripts
 )

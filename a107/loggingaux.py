@@ -3,7 +3,7 @@
 
 __all__ = [
 "get_python_logger", "add_file_handler", "reset_logger",
-"LogTwo", "SmartFormatter", "str_exc", "aargh"]
+"LogTwo", "SmartFormatter", "str_exc", ]
 
 
 import logging
@@ -21,7 +21,7 @@ def reset_logger():
 _python_logger = None
 _fmtr = logging.Formatter('[%(levelname)-8s] %(message)s')
 def get_python_logger():
-    """Returns logger to receive Python messages (as opposed to Fortran).
+    """Returns logger to receive Python messages.
 
     At first call, _python_logger is created. At subsequent calls, _python_logger is returned. 
     Therefore, if you want to change `a107.flag_log_file` or `a107.flag_log_console`, do so
@@ -101,16 +101,4 @@ class SmartFormatter(RawDescriptionHelpFormatter):
 def str_exc(E):
     """Generates a string from an Exception"""
     return "{0!s}: {1!s}".format(E.__class__.__name__, str(E))
-
-
-def aargh(doc, main):
-    """
-    Command-line interface with argument parser without parameters.
-
-    Arguments:
-
-    """
-    parser = argparse.ArgumentParser(description=doc, formatter_class=SmartFormatter)
-    args = parser.parse_args()
-    main()
 

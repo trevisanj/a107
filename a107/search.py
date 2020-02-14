@@ -12,7 +12,7 @@ import numpy as np
 
 def index_nearest(array, value):
     """
-    Finds index of nearest value in array.
+    Finds index of nearest value in numpy array.
 
     Args:
         array: numpy array

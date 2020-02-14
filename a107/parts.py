@@ -141,7 +141,11 @@ class keydefaultdict(defaultdict):
             return ret
 
 
-class ClassPropertyDescriptor(object):
+class _ClassPropertyDescriptor(object):
+    """Part of classproperty()
+
+    Source: https://stackoverflow.com/questions/5189699/how-to-make-a-class-property
+    """
 
     def __init__(self, fget, fset=None):
         self.fget = fget
@@ -173,4 +177,4 @@ def classproperty(func):
     if not isinstance(func, (classmethod, staticmethod)):
         func = classmethod(func)
 
-    return ClassPropertyDescriptor(func)
+    return _ClassPropertyDescriptor(func)
