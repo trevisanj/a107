@@ -1,8 +1,3 @@
-import sys
-if sys.version_info[0] < 3:
-    print("Python version detected:\n*****\n{0!s}\n*****\nCannot run, must be using Python 3".format(sys.version))
-    sys.exit()
-
 from setuptools import setup, find_packages
 from glob import glob
 
@@ -17,12 +12,11 @@ def find_scripts(pkgs):
 pkgs = find_packages()
 scripts = find_scripts(pkgs)
 
-
 setup(
     name='a107',
     packages=find_packages(),
     include_package_data=True,
-    version='19.06.27.0',
+    version='20.02.23.0',
     license='GNU GPLv3',
     platforms='any',
     description='A multi-purpose API in Python',
@@ -33,5 +27,6 @@ setup(
                'conversion', 'datetime', 'config', 'text', 'cryptography'
                ],
     install_requires=["colored", "numpy"],
+    python_requires = '>=3',
     scripts=scripts
 )
