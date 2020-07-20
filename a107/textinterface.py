@@ -9,10 +9,15 @@ from colored import fg, bg, attr
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "fmt_error", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
-           "question", "format_slug", "print_file", "aargh"]
+           "question", "format_slug", "print_file", "aargh", "format_yoda"]
 
 
 NIND = 2  # Number of spaces per indentation level
+
+
+def format_yoda(s, happy=True):
+    return "{0}|o_o|{0} -- {1}".format("^" if happy else "v", s)
+
 
 def format_slug(s, eye=None):
     """
@@ -218,6 +223,8 @@ def yesno(question, default=None):
     if default is not None:
         if isinstance(default, bool):
             pass
+        elif isinstance(default, int):
+            default = bool(default)
         else:
             default_ = default.upper()
             if default_ not in ('Y', 'YES', 'N', 'NO'):

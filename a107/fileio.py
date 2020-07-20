@@ -6,12 +6,13 @@ from threading import Lock
 import sys
 import a107
 import logging
+import glob
 
 
 __all__ = [
     "rename_to_temp", "is_text_file", "multirow_str_vector", "add_bits_to_path", "crunch_dir",
     "slugify", "write_lf", "int_vector", "float_vector", "get_path",
-    "str_vector", "new_filename", "readline_strip", "create_symlink", "which",
+    "str_vector", "new_filename", "sequential_filename", "readline_strip", "create_symlink", "which",
 ]
 
 
@@ -141,7 +142,7 @@ def multirow_str_vector(f, n, r=0):
 # # Probe, write, rename etc.
 
 def new_filename(prefix, extension=None, flag_minimal=True):
-    """returns a file name that does not exist yet, e.g. prefix.0001.extension
+    """returns a file name that does not exist yet, e.g. prefix-0001.extension
 
     Args:
         prefix:
@@ -186,6 +187,47 @@ def new_filename(prefix, extension=None, flag_minimal=True):
         i += 1
         if i > 9999:
             raise RuntimeError("Could not make a new file name for (prefix='{0!s}', extension='{1!s}')".format(prefix, extension))
+    return ret
+
+
+def sequential_filename(prefix, extension=None, num_digits=4):
+    """
+    Returns a file name that does not exist yet and continues numbering from last existing.
+
+    Args:
+        prefix:
+        extension: examples: "dat", ".dat" (leading dot will be detected, does not repeat dot in name)
+        num_digits:
+
+    This was created to continue a sequence of files even is some of them have been deleted.
+    """
+
+    # Note: the way extension is handled is different from new_filename(). For glob's sake, I decided to include the dot
+    # in extension, not in fmt
+
+    assert not isinstance(num_digits, bool)
+
+    if extension is None:
+        extension = ""
+    if len(extension) > 0 and extension[0] != ".":
+        extension = "."+extension
+    # extension-sensitive format for filename
+    fmt = '{0!s}-{1:0'+str(num_digits)+'d}{2!s}' if extension else '{0!s}-{1:0'+str(num_digits)+'d}'
+
+    # Removes tailing dash because it would look funny (but will be re-added in format string)
+    prefix = prefix[:-1] if prefix.endswith("-") else prefix
+
+    ff = glob.glob(f"{prefix}-*{extension}")
+    ff.sort()
+    try:
+        _, filename = os.path.split(ff[-1])
+        curr = int(re.match(f"{prefix}-(\d+)", ff[-1]).groups()[0])
+    except (IndexError, TypeError):
+        curr = -1
+
+
+    curr += 1
+    ret = fmt.format(prefix, curr, extension)
     return ret
 
 

@@ -15,7 +15,7 @@ import inspect
 import textwrap
 import a107
 
-__all__ = ["ConsoleCommands", "Console", "ConsoleError"]
+__all__ = ["ConsoleCommands", "Console", "ConsoleError", "console_bool"]
 
 COLOR_OKGREEN = fg("green")
 COLOR_FAIL = fg("red")
@@ -24,6 +24,12 @@ COLOR_HAPPY = fg("light_green")
 COLOR_SAD = fg("blue")
 COLOR_INPUT = fg("orange_1")
 
+
+def console_bool(s):
+    """Translates str console arguments to bool"""
+    if isinstance(s, str) and s.upper() == "FALSE":
+        return False
+    return bool(s)
 
 class ConsoleCommands(object):
     """
@@ -129,6 +135,9 @@ class Console(object):
         cmd.console = self
 
         # pre-startup
+        if self.data_dir:
+            os.makedirs(self.data_dir, exist_ok=True)
+
         self.cfg = None
         if flag_cfg:
             cfg = self.cfg = a107.AAConfigObj(self.config_path)

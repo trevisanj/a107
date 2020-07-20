@@ -26,7 +26,7 @@ setup(
     keywords= ['debugging', 'introspection', 'file', 'search',
                'conversion', 'datetime', 'config', 'text', 'cryptography'
                ],
-    install_requires=["colored", "numpy"],
+    install_requires=["colored", "numpy", "tabulate", "configobj", "python-dateutil"],
     python_requires = '>=3',
     scripts=scripts
 )
