@@ -5,14 +5,19 @@ import sys
 import random
 import os
 from colored import fg, bg, attr
+import argparse
+from .loggingaux import SmartFormatter
 
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
-           "fmt_error", "print_error", "menu", "format_progress", "markdown_table",
+           "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
            "question", "format_slug", "print_file", "aargh", "format_yoda"]
 
 
 NIND = 2  # Number of spaces per indentation level
+COLORED_ERROR = fg("salmon_1")
+COLORED_WARNING = fg("yellow")
+COLORED_DEBUG = fg("deep_pink_1a")
 
 
 def format_yoda(s, happy=True):
@@ -159,14 +164,24 @@ def format_h4(s, format="text", indents=0):
         return format_underline(s, _CHAR, 0)
 
 
-def fmt_error(s):
-    """Standardized embellishment. Adds formatting to error message."""
-    return "!! {0!s} !!".format(s)
+def __format_genericlog(message, type, color):
+    return "{}{}{}:{} {}{}{}".format(color, attr("bold"), type, attr("reset"), color, message, attr("reset"))
 
+def format_error(s):
+    """Standardized embellishment. Adds formatting to error message."""
+    return __format_genericlog(s, "Error", COLORED_ERROR)
+
+def format_warning(s):
+    """Standardized embellishment. Adds formatting to warning message."""
+    return __format_genericlog(s, "Warning", COLORED_WARNING)
+
+def format_debug(s):
+    """Standardized embellishment. Adds formatting to warning message."""
+    return __format_genericlog(s, "Debug", COLORED_DEBUG)
 
 def print_error(s):
     """Prints string as error message."""
-    print((fmt_error(s)))
+    print((format_error(s)))
 
 
 def question(question, options, default=None):
@@ -473,3 +488,9 @@ def aargh(doc, main):
     args = parser.parse_args()
     main()
 
+
+def print_cfg(cfg):
+    """Use this to print argparse's parsed args (which I now calls cfg, not args)."""
+    for attrname in dir(cfg):
+        if not attrname.startswith("_"):
+            print(f"{attrname}={repr(getattr(cfg, attrname))}")
