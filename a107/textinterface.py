@@ -11,7 +11,7 @@ from .loggingaux import SmartFormatter
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
-           "question", "format_slug", "print_file", "aargh", "format_yoda"]
+           "question", "format_slug", "print_file", "aargh", "format_yoda", "print_cfg"]
 
 
 NIND = 2  # Number of spaces per indentation level
