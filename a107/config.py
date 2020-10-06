@@ -8,6 +8,7 @@ from configobj import ConfigObj
 from .loggingaux import get_python_logger
 import os
 import re
+import a107
 
 __all__ = ["AAConfigObj", "get_config_obj"]
 
@@ -38,7 +39,7 @@ class AAConfigObj(ConfigObj):
         return obj, path_
 
     def get(self, path_, default):
-        """Return item or default. In the latter, changes file to have default.
+        """Returns value or default. **In the latter case, stores default value in file**.
 
         Args:
             path_: path to item in section/subsection structure. May be either:
@@ -49,7 +50,7 @@ class AAConfigObj(ConfigObj):
         Argument 'default' is also used to determine the type of the data to return:
 
             - str and list: returned as retrieved
-            - int and float: eval'ed
+            - int and float: converted
             - bool: parsed
         """
         section, path_ = self._get_section(path_)
@@ -60,7 +61,15 @@ class AAConfigObj(ConfigObj):
             self.set(path_, default)
             return default
 
-        return section[key]
+        x = section[key]
+        
+        if isinstance(default, int):
+            return int(x)
+        elif isinstance(default, float):
+            return float(x)
+        elif isinstance(default, bool):
+            return a107.str2bool(x)
+        
 
     def set(self, path_, value):
         """Sets item and automatically saves file. Returns value for convenience"""
