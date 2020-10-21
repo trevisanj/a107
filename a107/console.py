@@ -15,7 +15,7 @@ import inspect
 import textwrap
 import a107
 
-__all__ = ["ConsoleCommands", "Console", "ConsoleError", "console_bool"]
+__all__ = ["ConsoleCommands", "Console", "ConsoleError", "console_bool", "publish_in_pythonconsole"]
 
 COLOR_OKGREEN = fg("green")
 COLOR_FAIL = fg("red")
@@ -314,7 +314,48 @@ class InvalidMethodError(ConsoleError):
     pass
 
 
-if __name__ == "__main__":
-    import a107
-    commands = a107.ConsoleCommands()
-    console = a107.Console(cmd=commands)
+
+def publish_in_pythonconsole(commands, globalsdict, on_exit=None):
+    """
+    Performs series of actions to allow commands to be used from the Python console
+
+    Args:
+        commands:
+        globalsdict: dictionary obtained (probably in main module) using globals()
+
+    Actions performed:
+
+        - modifies globalsdict to have all commands + a "print_help()" method
+        - captures Ctrl+C and Ctrl+Z to execute on_exit
+
+    """
+
+    def print_help(command=None):
+        "Prints help"
+        print(commands.help(command))
+    globalsdict["print_help"] = print_help
+
+    mm = [x for x in inspect.getmembers(commands, predicate=inspect.ismethod) if not x[0].startswith("_")]
+    for name, method in mm:
+        globalsdict[name] = method
+    # del Commands, method, mm  # , console
+
+    if on_exit is not None:
+        # This one gets called at Ctrl+C, but ...
+        def _atexit():
+            on_exit()
+
+        # ... we need this to handle the Ctrl+Z.
+        def _ctrl_z_handler(signum, frame):
+            # this will trigger _atexit()
+            sys.exit()
+
+        atexit.register(_atexit)
+        signal.signal(signal.SIGTSTP, _ctrl_z_handler)
+
+
+
+# TODO why did I have this here? Guess it was some test if __name__ == "__main__":
+#     import a107
+#     commands = a107.ConsoleCommands()
+#     console = a107.Console(cmd=commands)

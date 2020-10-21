@@ -29,12 +29,12 @@ def slugify(string):
     string = string.replace(" ", "-")
     return string
 
-
 def crunch_dir(name, n=50):
     """Puts "..." in the middle of a directory name if lengh > n."""
     if len(name) > n + 3:
         name = "..." + name[-n:]
     return name
+
 
 def add_bits_to_path(path_, filename_prefix=None, extension=None):
     """
@@ -138,7 +138,6 @@ def multirow_str_vector(f, n, r=0):
     return v, n_rows
 
 
-
 # # Probe, write, rename etc.
 
 def new_filename(prefix, extension=None, flag_minimal=True):
@@ -232,6 +231,8 @@ def sequential_filename(prefix, extension=None, num_digits=4):
 
 
 _rename_to_temp_lock = Lock()
+
+
 def rename_to_temp(filename):
     """*Thread-safe* renames file to temporary filename. Returns new name"""
     with _rename_to_temp_lock:
@@ -265,7 +266,6 @@ def create_symlink(source, link_name):
         flags = 1 if os.path.isdir(source) else 0
         if csl(link_name, source, flags) == 0:
             raise ctypes.WinError()
-
 
 
 
