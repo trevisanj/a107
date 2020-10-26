@@ -12,7 +12,7 @@ import glob
 __all__ = [
     "rename_to_temp", "is_text_file", "multirow_str_vector", "add_bits_to_path", "crunch_dir",
     "slugify", "write_lf", "int_vector", "float_vector", "get_path",
-    "str_vector", "new_filename", "sequential_filename", "readline_strip", "create_symlink", "which",
+    "str_vector", "new_filename", "temp_filename", "sequential_filename", "readline_strip", "create_symlink", "which",
 ]
 
 
@@ -187,6 +187,11 @@ def new_filename(prefix, extension=None, flag_minimal=True):
         if i > 9999:
             raise RuntimeError("Could not make a new file name for (prefix='{0!s}', extension='{1!s}')".format(prefix, extension))
     return ret
+
+
+def temp_filename(prefix, extension=None):
+    """Wrapper for new_filename that filename without path nor extension from prefix and prepends '/tmp/  to it."""
+    return a107.new_filename(os.path.join("/tmp", os.path.splitext(os.path.split(prefix)[1])[0]), extension)
 
 
 def sequential_filename(prefix, extension=None, num_digits=4):
