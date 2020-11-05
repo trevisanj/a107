@@ -82,8 +82,8 @@ class AAConfigObj(ConfigObj):
 def get_config_obj(filename):
     """Reads/creates filename at user **home** folder and returns a AAConfigObj object"""
 
-    if not filename.startswith("."):
-        get_python_logger().warning("Configuration filename '{}' does not start with a '.'".format(filename))
+    # if not filename.startswith("."):
+    #     get_python_logger().warning("Configuration filename '{}' does not start with a '.'".format(filename))
 
     path_ = os.path.join(os.path.expanduser("~"), filename)
     return AAConfigObj(path_, encoding="UTF8")

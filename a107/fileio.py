@@ -13,6 +13,7 @@ __all__ = [
     "rename_to_temp", "is_text_file", "multirow_str_vector", "add_bits_to_path", "crunch_dir",
     "slugify", "write_lf", "int_vector", "float_vector", "get_path",
     "str_vector", "new_filename", "temp_filename", "sequential_filename", "readline_strip", "create_symlink", "which",
+    "ensurepath"
 ]
 
 
@@ -308,7 +309,6 @@ def is_text_file(filepath, blocksize=2**14):
         return float(len(nontext)) / len(block) <= 0.30
 
 
-
 def which(program):
     """
     Mimics UNIX 'which' command: return full path to executable file
@@ -347,3 +347,12 @@ def get_path(*args, module=a107):
 
     p = os.path.abspath(os.path.join(os.path.split(module.__file__)[0], *args))
     return p
+
+def ensurepath(path):
+    """Iteratively calls mkdir until full path exists."""
+    dd = [x for x in path.split(os.path.sep) if x]
+    sofar = ""
+    for d in dd:
+        sofar += os.path.sep+d
+        if not os.path.isdir(sofar):
+            os.mkdir(sofar)
