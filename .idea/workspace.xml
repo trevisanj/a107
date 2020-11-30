@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="198f81f3-5a7e-4d4a-8456-85fd4dd3cfab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/fileio.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/fileio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,10 +66,10 @@
       <screen x="0" y="0" width="1920" height="1053" />
     </state>
     <state x="743" y="283" width="424" height="482" key="FileChooserDialogImpl/0.0.1920.1053@0.0.1920.1053" timestamp="1602349868849" />
-    <state x="639" y="250" width="641" height="550" key="find.popup" timestamp="1604596110167">
+    <state x="639" y="250" width="641" height="550" key="find.popup" timestamp="1605964716921">
       <screen x="0" y="0" width="1920" height="1053" />
     </state>
-    <state x="639" y="250" width="641" height="550" key="find.popup/0.0.1920.1053@0.0.1920.1053" timestamp="1604596110167" />
+    <state x="639" y="250" width="641" height="550" key="find.popup/0.0.1920.1053@0.0.1920.1053" timestamp="1605964716921" />
     <state x="623" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1604596121053">
       <screen x="0" y="0" width="1920" height="1053" />
     </state>

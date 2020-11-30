@@ -342,15 +342,16 @@ def publish_in_pythonconsole(commands, globalsdict, on_exit=None):
 
     if on_exit is not None:
         # This one gets called at Ctrl+C, but ...
-        def _atexit():
-            on_exit()
+
+        # def _atexit():
+        #     on_exit()
 
         # ... we need this to handle the Ctrl+Z.
         def _ctrl_z_handler(signum, frame):
             # this will trigger _atexit()
             sys.exit()
 
-        atexit.register(_atexit)
+        atexit.register(on_exit)  # _atexit)
         signal.signal(signal.SIGTSTP, _ctrl_z_handler)
 
 
