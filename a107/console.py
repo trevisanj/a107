@@ -15,7 +15,7 @@ import inspect
 import textwrap
 import a107
 
-__all__ = ["ConsoleCommands", "Console", "ConsoleError", "console_bool", "publish_in_pythonconsole"]
+__all__ = ["ConsoleCommands", "Console", "ConsoleError", "console_bool", "embed_ipython"]
 
 COLOR_OKGREEN = fg("green")
 COLOR_FAIL = fg("red")
@@ -329,30 +329,71 @@ def publish_in_pythonconsole(commands, globalsdict, on_exit=None):
         - captures Ctrl+C and Ctrl+Z to execute on_exit
 
     """
+    raise RuntimeError("This never worked well; use embed_ipython() instead")
+    #
+    # def print_help(command=None):
+    #     "Prints help"
+    #     print(commands.help(command))
+    # globalsdict["print_help"] = print_help
+    #
+    # mm = [x for x in inspect.getmembers(commands, predicate=inspect.ismethod) if not x[0].startswith("_")]
+    # for name, method in mm:
+    #     globalsdict[name] = method
+    # # del Commands, method, mm  # , console
+    #
+    # if on_exit is not None:
+    #     # This one gets called at Ctrl+C, but ...
+    #
+    #     # def _atexit():
+    #     #     on_exit()
+    #
+    #     # ... we need this to handle the Ctrl+Z.
+    #     def _ctrl_z_handler(signum, frame):
+    #         # this will trigger _atexit()
+    #         sys.exit()
+    #
+    #     atexit.register(on_exit)  # _atexit)
+    #     signal.signal(signal.SIGTSTP, _ctrl_z_handler)
+    #
+
+
+
+def embed_ipython(commands, globalsdict, colors="linux"):
+    """
+    Extracts commands to globalsdict and Embeds Ipython
+    Args:
+        commands: Commands instance
+        globalsdict: dictionary obtained (probably in main module) using globals()
+        colors: embed() suppresses colors by default, so I implemented this control with a default value
+
+    Actions performed:
+
+        - modifies globalsdict to have all commands + a "print_help()" method
+        - supresses Ctrl+Z. **You will have to type "exit"**. Don't worry, Yoda will tell you
+    """
+
+    from IPython import embed
 
     def print_help(command=None):
         "Prints help"
         print(commands.help(command))
-    globalsdict["print_help"] = print_help
+    # globalsdict["print_help"] = print_help
 
     mm = [x for x in inspect.getmembers(commands, predicate=inspect.ismethod) if not x[0].startswith("_")]
     for name, method in mm:
         globalsdict[name] = method
     # del Commands, method, mm  # , console
 
-    if on_exit is not None:
-        # This one gets called at Ctrl+C, but ...
+    def _ctrl_z_handler(signum, frame):
+        # this will trigger _atexit()
+        print(a107.format_yoda('Press Ctrl+Z do not, type "exit" you must'))
 
-        # def _atexit():
-        #     on_exit()
+        # atexit.register(on_exit)  # _atexit)
+    signal.signal(signal.SIGTSTP, _ctrl_z_handler)
 
-        # ... we need this to handle the Ctrl+Z.
-        def _ctrl_z_handler(signum, frame):
-            # this will trigger _atexit()
-            sys.exit()
-
-        atexit.register(on_exit)  # _atexit)
-        signal.signal(signal.SIGTSTP, _ctrl_z_handler)
+    del mm, name, method
+    locals().update(globalsdict)
+    embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors)
 
 
 
