@@ -21,7 +21,7 @@ COLORED_DEBUG = fg("deep_pink_1a")
 
 
 def format_yoda(s, happy=True):
-    return "{0}|o_o|{0} -- {1}".format("^" if happy else "v", s)
+    return "{4}{2}{0}|o_o|{0} -- {1}{3}".format("^" if happy else "v", s, fg("dark_olive_green_3a"), attr("reset"), attr("bold"))
 
 
 def format_slug(s, eye=None):
