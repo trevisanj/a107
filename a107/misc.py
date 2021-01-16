@@ -15,7 +15,7 @@ _forenames = ["Solomon", "John", "Loretta", "Stephen", "Harry", "Nancy", "Tracy"
         "Hayat", "Taghreed", "Orla", "Michael", "Lourdes", "Weiyi", "Thomas", "Willian", "Miguel", "Rui",
         "Abdullah", "Angus", "Malcolm", "Donald", "Mickey", "Polona", "Rashmi", "Xiaowei", "Sasha", "Luciano",
         "Avinash", "Anthony", "Karen", "Matthew", "Tatiana", "Mariana", "Antonio", "Hamilton", "Pauderney",
-        "BB-8", "Roque", "Damian", "Rui"]
+        "BB-8", "Damian", "Rui", "Nicolas", "Viola", "Soledad", "Aspa", "Mirjam", "Micaela", "Yamilla", "Angelica"]
 _surnames = ["Northupp", "Kanobi", "de Morgan", "de Vries", "van Halen", "McFly", "Wallace", "McLeod", "Skywalker", "Smith",
        "Silva", "da Silva", "Sexy", "Coupat", "Coupable", "Byron", "Lovelace", "Pascal", "Kareninski", "Dynamite",
        "Souza", "Ha", "Balboa", "Durden", "V.", "Li", "Manco", "Kelly", "Torquato", "Sampaio", "Bittencourt", "Parisi",
@@ -24,7 +24,7 @@ _surnames = ["Northupp", "Kanobi", "de Morgan", "de Vries", "van Halen", "McFly"
        "Nogueira", "Pereira", "Sant'anna", "Kerns", "Patel", "Ahmadzai", "Riding", "Llabjani", "Maus",
        "Liger", "Byrne", "Wood", "Angelov", "Andreu", "Sadeghi", "Gajjar", "Kara", "Wolstenholme", "Alghaith",
        "Young", "Scott", "Luz", "Copic", "Pucihar", "Zhou", "Dutta", "Baruah", "Singh", "Sauro", "do Nascimento",
-       "Lee", "Trevisan", "Travisani", "Pereira", "Nandwani", "Moura", "Senna", "Wang", "One Love"]
+       "Lee", "Trevisan", "Travisani", "Pereira", "Nandwani", "Moura", "Senna", ]
 _prefixes = ["Dr.", "Prof.", "Sir", "Ven."]
 _suffixes = ["The 3rd", "Jr.", "Sobrinho", "Neto", "VIII", "XVI", "I", "II", "III", "IV"]
 _PROB_PREF = 0.1
