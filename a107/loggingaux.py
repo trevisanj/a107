@@ -30,23 +30,22 @@ def get_python_logger():
     import a107
     global _python_logger
     if _python_logger is None:
-        fn = a107.fn_log
-        l = logging.Logger("a107", level=a107.logging_level)
-        if a107.flag_log_file:
-            add_file_handler(l, fn)
-        if a107.flag_log_console:
-            ch = logging.StreamHandler()
-            ch.setFormatter(_fmtr)
-            l.addHandler(ch)
-        _python_logger = l
-        for line in a107.format_box("a107 logging session started @ {}".format(a107.now_str())):
-            l.info(line)
-        if a107.flag_log_console:
-            l.info("$ Logging to console $")
-        if a107.flag_log_file:
-            l.info("$ Logging to file '{}' $".format(fn))
+        _python_logger = get_new_logger()
 
     return _python_logger
+
+
+def get_new_logger(level, flag_log_console=True, flag_log_file=False, filepath=None):
+    """Creates new logger"""
+    fn = a107.fn_log
+    logger = logging.Logger("a107", level=a107.logging_level)
+    if flag_log_file:
+        add_file_handler(logger, fn)
+    if flag_log_console:
+        ch = logging.StreamHandler()
+        ch.setFormatter(_fmtr)
+        logger.addHandler(ch)
+    return logger
 
 
 def add_file_handler(logger, logFilename=None):
