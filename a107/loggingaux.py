@@ -1,18 +1,10 @@
 """Logging routines"""
-
-
-__all__ = [
-"get_python_logger", "add_file_handler", "reset_logger",
-"LogTwo", "SmartFormatter", "str_exc", ]
-
-
+__all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger"]
 import logging
 import sys
-import argparse
 from argparse import *
 from .parts import *
-import datetime
-import traceback
+
 
 def reset_logger():
     global _python_logger
