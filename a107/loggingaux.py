@@ -22,16 +22,25 @@ def get_python_logger():
     import a107
     global _python_logger
     if _python_logger is None:
-        _python_logger = get_new_logger(a107.logging_level, a107.flag_log_console, a107.flag_log_file, a107.fn_log)
+        _python_logger = get_new_logger()
 
     return _python_logger
 
 
-def get_new_logger(level, flag_log_console=True, flag_log_file=False, filepath=None):
+def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log=None):
     """Creates new logger"""
+    import a107
+    if level is None:
+        level = a107.logging_level
+    if  flag_log_console is None:
+        flag_log_console = a107.flag_log_console
+    if  flag_log_file is None:
+        flag_log_file = a107.flag_log_file
+    if  fn_log is None:
+        fn_log = a107.fn_log
     logger = logging.Logger("a107", level=level)
     if flag_log_file:
-        add_file_handler(logger, filepath)
+        add_file_handler(logger, fn_log)
     if flag_log_console:
         ch = logging.StreamHandler()
         ch.setFormatter(_fmtr)
