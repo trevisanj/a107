@@ -69,6 +69,7 @@ class AAConfigObj(ConfigObj):
             return float(x)
         elif isinstance(default, bool):
             return a107.str2bool(x)
+        return x
         
 
     def set(self, path_, value):

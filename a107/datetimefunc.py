@@ -4,10 +4,11 @@ import math
 import time
 import datetime
 import dateutil
+import numpy as np
 
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
            "time2seconds", "seconds2time", "to_datetime", "str2ts", "iso8601_to_float",
-           "float_to_iso8601", "dt2stamp"]
+           "float_to_iso8601", "dt2stamp", "v_ts2dt", "to_timestamp"]
 
 
 _FMT = "%Y-%m-%d %H:%M"  # Date & time format
@@ -41,6 +42,8 @@ def ts2dt(ts, flag_microseconds=True):
         ts = int(ts)
     return datetime.datetime.fromtimestamp(ts)
 
+v_ts2dt = np.vectorize(ts2dt)
+v_ts2dt.__doc__ = """Vectorized version of ts2dt()"""
 
 def dt2str(dt, flagSeconds=True):
     """Converts datetime object to str if not yet an str."""
@@ -110,6 +113,13 @@ def to_datetime(arg):
         raise TypeError("Wrong type for argument 'arg': {}".format(arg.__class__.__name__))
 
     return arg
+
+
+def to_timestamp(arg):
+    """Tries to convert anything into a timestamp."""
+    if isinstance(arg, float):
+        return arg
+    return dt2ts(to_datetime(arg))
 
 
 def iso8601_to_float(s):
