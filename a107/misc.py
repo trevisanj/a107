@@ -15,11 +15,12 @@ _forenames = ["Solomon", "John", "Loretta", "Stephen", "Harry", "Nancy", "Tracy"
         "Hayat", "Taghreed", "Orla", "Michael", "Lourdes", "Weiyi", "Thomas", "Willian", "Miguel", "Rui",
         "Abdullah", "Angus", "Malcolm", "Donald", "Mickey", "Polona", "Rashmi", "Xiaowei", "Sasha", "Luciano",
         "Avinash", "Anthony", "Karen", "Matthew", "Tatiana", "Mariana", "Antonio", "Hamilton", "Pauderney",
-        "BB-8", "Damian", "Rui", "Nicolas", "Viola", "Soledad", "Aspa", "Mirjam", "Micaela", "Yamilla", "Angelica"]
+        "BB-8", "Damian", "Rui", "Nicolas", "Viola", "Soledad", "Aspa", "Mirjam", "Micaela", "Yamilla", "Angelica",
+        "Chocolate"]
 _surnames = ["Northupp", "Kanobi", "de Morgan", "de Vries", "van Halen", "McFly", "Wallace", "McLeod", "Skywalker", "Smith",
        "Silva", "da Silva", "Sexy", "Coupat", "Coupable", "Byron", "Lovelace", "Pascal", "Kareninski", "Dynamite",
        "Souza", "Ha", "Balboa", "Durden", "V.", "Li", "Manco", "Kelly", "Torquato", "Sampaio", "Bittencourt", "Parisi",
-       "Oliveira", "Crap", "Copppercup", "Motherfucker", "Firehead", "Martin", "Papanicolau", "Galilei", "Stuart",
+       "Oliveira", "Crap", "Coppercup", "Motherfucker", "Firehead", "Martin", "Papanicolau", "Galilei", "Stuart",
        "Bitch", "King", "Cleese", "Thoreau", "Twain", "Marx", "Yankovicz", "Vader", "Prado", "Teixeira", "Oliveira",
        "Nogueira", "Pereira", "Sant'anna", "Kerns", "Patel", "Ahmadzai", "Riding", "Llabjani", "Maus",
        "Liger", "Byrne", "Wood", "Angelov", "Andreu", "Sadeghi", "Gajjar", "Kara", "Wolstenholme", "Alghaith",
