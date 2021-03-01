@@ -11,7 +11,8 @@ from .loggingaux import SmartFormatter
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
-           "question", "format_slug", "print_file", "aargh", "format_yoda", "print_cfg"]
+           "question", "format_slug", "print_file", "aargh", "format_yoda", "format_madyoda", "print_cfg",
+           "format_color"]
 
 
 NIND = 2  # Number of spaces per indentation level
@@ -20,12 +21,31 @@ COLORED_WARNING = fg("yellow")
 COLORED_DEBUG = fg("deep_pink_1a")
 
 
+def format_color(s, fg_=None, bg_=None, attrs=None):
+    """Wraps over colored for convenience"""
+    aa = []
+    if fg_ is not None:
+        aa.append(fg(fg_))
+    if bg_ is not None:
+        aa.append(bg(bg_))
+    if attrs is not None:
+        if isinstance(attrs, str):
+            attrs = [attrs]
+        aa.extend([attr(attr_) for attr_ in attrs])
+    return "".join(aa)+s+attr("reset")
+
+
 def format_yoda(s, happy=True):
+    """The classic Yoda formatting."""
+    return "{4}{2}{0}|o_o|{0} -- {1}{3}".format("^" if happy else "v", s, fg("dark_olive_green_3a"), attr("reset"), attr("bold"))
+
+
+def format_madyoda(s, happy=True):
     """Randomize the words Yoda will. Messed it is I know, but care do I?"""
     words = s.split(" ")
     random.shuffle(words)
     s2 = " ".join(words)
-    return "{4}{2}{0}|o_o|{0} -- {1}{3}".format("^" if happy else "v", s2, fg("dark_olive_green_3a"), attr("reset"), attr("bold"))
+    return format_yoda(s, happy)
 
 
 def format_slug(s, eye=None):
