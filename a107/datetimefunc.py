@@ -15,7 +15,7 @@ _FMT = "%Y-%m-%d %H:%M"  # Date & time format
 _FMTS = "%Y-%m-%d %H:%M:%S"  # Date & time format with seconds
 _FMT0 = "%Y-%m-%d"  # Date format only
 _FMT1 = "%Y%m%d" # Date format, compacted
-_FMTSTAMP = "%Y%m%d%H%M%S"  # Format for filenames, for example
+_FMTSTAMP = "%Y.%m.%d.%H.%M.%S"  # Format for dates and times that will be parts of filenames
 
 def now_str():
     return datetime.datetime.strftime(datetime.datetime.now(), _FMTS)
