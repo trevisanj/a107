@@ -10,9 +10,8 @@ import glob
 
 
 __all__ = [
-    "rename_to_temp", "is_text_file", "multirow_str_vector", "add_bits_to_path", "crunch_dir",
-    "slugify", "write_lf", "int_vector", "float_vector", "get_path",
-    "str_vector", "new_filename", "temp_filename", "sequential_filename", "readline_strip", "create_symlink", "which",
+    "rename_to_temp", "is_text_file", "add_bits_to_path", "add_parts_to_path", "crunch_dir",
+    "slugify", "write_lf", "get_path", "new_filename", "temp_filename", "sequential_filename", "create_symlink", "which",
     "ensurepath"
 ]
 
@@ -30,6 +29,7 @@ def slugify(string):
     string = string.replace(" ", "-")
     return string
 
+
 def crunch_dir(name, n=50):
     """Puts "..." in the middle of a directory name if lengh > n."""
     if len(name) > n + 3:
@@ -37,7 +37,7 @@ def crunch_dir(name, n=50):
     return name
 
 
-def add_bits_to_path(path_, filename_prefix=None, extension=None):
+def add_parts_to_path(path_, filename_prefix=None, extension=None):
     """
     Adds prefix/suffix to filename
 
@@ -72,72 +72,9 @@ def add_bits_to_path(path_, filename_prefix=None, extension=None):
 
     return os.path.join(dir_, basename)
 
-
-# # Text file parsing utillities
-
-def str_vector(f):
-    """
-    Reads next line of file and makes it a vector of strings
-
-    Note that each str.split() already strips each resulting string of any whitespaces.
-    """
-    return f.readline().split()
-
-
-def float_vector(f):
-    """Reads next line of file and makes it a vector of floats."""
-    return [float(s) for s in str_vector(f)]
-
-
-def int_vector(f):
-    """Reads next line of file and makes it a vector of floats."""
-    return [int(s) for s in str_vector(f)]
-
-
-def readline_strip(f):
-    """Reads next line of file and strips the newline."""
-    return f.readline().strip('\n')
-
-
-def multirow_str_vector(f, n, r=0):
-    """
-    Assembles a vector that spans several rows in a text file.
-
-    Arguments:
-      f -- file-like object
-      n -- number of values expected
-      r (optional) -- Index of last row read in file (to tell which file row in
-                      case of error)
-
-    Returns:
-      (list-of-strings, number-of-rows-read-from-file)
-    """
-
-    so_far = 0
-    n_rows = 0
-    v = []
-    while True:
-        temp = str_vector(f)
-        n_rows += 1
-        n_now = len(temp)
-
-        if n_now+so_far > n:
-            a99.get_python_logger().warning(('Reading multi-row vector: '
-                'row %d should have %d values (has %d)') %
-                (r+n_rows, n-so_far, n_now))
-
-            v.extend(temp[:n-so_far])
-            so_far = n
-
-        elif n_now+so_far <= n:
-            so_far += n_now
-            v.extend(temp)
-
-        if so_far == n:
-            break
-
-    return v, n_rows
-
+# Compatibility
+def add_bits_to_path(*args, **kwargs):
+    raise RuntimeError("This error is not your fault. Just the creator of this method realized that its name is misleading, please correct your code to use add_parts_to_path() instead.")
 
 # # Probe, write, rename etc.
 
@@ -311,7 +248,7 @@ def is_text_file(filepath, blocksize=2**14):
 
 def which(program):
     """
-    Mimics UNIX 'which' command: return full path to executable file
+    Mimics UNIX 'which' command: return full path to executable file.
 
     http://stackoverflow.com/questions/377017/test-if-executable-exists-in-python
     """
@@ -334,15 +271,13 @@ def which(program):
 
 
 def get_path(*args, module=a107):
-    """Returns full path to specified module
+    """Returns full path to specified module.
 
     Args:
       *args: are added at the end of module path with os.path.join()
       module: Python module, defaults to a99
 
     Returns: path string
-
-    >>> get_path()
     """
 
     p = os.path.abspath(os.path.join(os.path.split(module.__file__)[0], *args))

@@ -1,3 +1,8 @@
+"""
+Routines to encrypt and decrypt files.
+
+This module is not automatically imported because it uses the Crypto package.
+"""
 import os
 import random
 from Crypto.Cipher import AES

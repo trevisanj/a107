@@ -1,14 +1,44 @@
-"""Conversion routines"""
+"""Generic conversion routines.
+
+Note: date- and time- related conversion routines are in the datetimefunc module instead.
+"""
 
 
 __all__ = [
 "str2bool", "to_bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
 "module2dict", "unicode2greek",
-"greek2unicode", "make_code_readable", "int2superscript"]
+"greek2unicode", "make_code_readable", "int2superscript", "color2hex", "hex2color"]
 
 
 import math
 import re
+
+
+def color2hex(color, flag_lowercase=True):
+    """Transforms a sequence (R, G, B[, A]) (R,G,B,A in [0, 255]) into a string of a 2-digit hexadecimal for each color.
+
+    Args:
+        color: sequence of values. If values are instance of float and <= 1, multiplies by 255 and converts to integer
+
+    Returns:
+        string of concatenated 2-digit hexadecimal numbers, e.g., "FE0102", which corresponds to (254, 01, 02)
+
+    Adapted from https://stackoverflow.com/questions/3380726/converting-a-rgb-color-tuple-to-a-six-digit-code-in-python
+    """
+
+    to_int_and_clamp = lambda x: max(0, min(int(x*255 if isinstance(x, float) and x <= 1 else x), 255))
+
+    ret = ("".join([f"{to_int_and_clamp(x):02x}" for x in color]))
+    if not flag_lowercase:
+        ret = ret.upper()
+    return ret
+
+
+def hex2color(hhhhhh):
+    """Transform every 2 digits of hhhhhh into an integer in [0, 255] and returns a tuple with these integers."""
+    if hhhhhh[0] == "#":
+        hhhhhh = hhhhhh[1:]
+    return tuple([int(hhhhhh[i:i+2], 16) for i in range(0, len(hhhhhh), 2)])
 
 
 # TODO maybe a str2bool_ex() and its counterpart
@@ -152,7 +182,8 @@ def module2dict(module):
 #   **    **    ******    ******      **    **    ******    ******      **    **    ******    ******
 #     ****            ****              ****            ****              ****            ****
 #
-# Greek alphabet-related routines
+# Greek alphabet-related routines.
+# These routines were created for my Convmol project, but I thought they are kindda cool. Who knows
 
 # Source:
 #     "A Python dictionary mapping the Unicode codes of the greek alphabet to their names"
@@ -229,7 +260,6 @@ def greek2unicode(s):
         return s
 
     return _GREEK2UNICODE[s]
-
 
 
 # superscript numbers
