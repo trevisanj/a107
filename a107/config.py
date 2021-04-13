@@ -63,12 +63,12 @@ class AAConfigObj(ConfigObj):
 
         x = section[key]
         
-        if isinstance(default, int):
+        if isinstance(default, bool):
+            return a107.to_bool(x)
+        elif isinstance(default, int):
             return int(x)
         elif isinstance(default, float):
             return float(x)
-        elif isinstance(default, bool):
-            return a107.str2bool(x)
         return x
         
 

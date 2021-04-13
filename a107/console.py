@@ -112,35 +112,35 @@ class Console(object):
 
     Args:
         slug: be kind and give me a slug
-        cmc: Commands or descendant thereof instance
-        data_dir: data directory. This is the place where it read and write file "{slug}.history"
+        cmd: Commands or descendant thereof instance
+        datadir: data directory. This is the place where it read and write file "{slug}.history"
         description:
         flag_cfg: whether to try to use config file
     """
 
     @property
-    def config_path(self):
-        return os.path.join(self.data_dir, self.slug+".cfg")
+    def configpagh(self):
+        return os.path.join(self.datadir, self.slug + ".cfg")
 
     @property
-    def history_path(self):
-        return os.path.join(self.data_dir, f"{self.slug}.history")
+    def historypath(self):
+        return os.path.join(self.datadir, f"{self.slug}.history")
 
-    def __init__(self, slug, cmd, data_dir=".", description="", flag_cfg=False):
+    def __init__(self, slug, cmd, datadir=".", description="", flag_cfg=False):
         self.slug = slug
-        self.data_dir = data_dir
+        self.datadir = datadir
         self.description = description
         self.cmd = cmd
         self.flag_cfg = flag_cfg
         cmd.console = self
 
         # pre-startup
-        if self.data_dir:
-            os.makedirs(self.data_dir, exist_ok=True)
+        if self.datadir:
+            os.makedirs(self.datadir, exist_ok=True)
 
         self.cfg = None
         if flag_cfg:
-            cfg = self.cfg = a107.AAConfigObj(self.config_path)
+            cfg = self.cfg = a107.AAConfigObj(self.configpagh)
 
         self.running = False
 
@@ -170,7 +170,7 @@ class Console(object):
 
         # This one gets called at Ctrl+C, but ...
         def _atexit():
-            readline.write_history_file(self.history_path)
+            readline.write_history_file(self.historypath)
 
         # ... we need this to handle the Ctrl+Z.
         def _ctrl_z_handler(signum, frame):
@@ -181,7 +181,7 @@ class Console(object):
         signal.signal(signal.SIGTSTP, _ctrl_z_handler)
 
         try:
-            readline.read_history_file(self.history_path)
+            readline.read_history_file(self.historypath)
             # default history len is -1 (infinite), which may grow unruly
             readline.set_history_length(1000)
         except FileNotFoundError:

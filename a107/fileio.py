@@ -285,6 +285,7 @@ def get_path(*args, module=a107):
 
 def ensurepath(path):
     """Iteratively calls mkdir until full path exists."""
+    path = os.path.abspath(os.path.expanduser(path))
     dd = [x for x in path.split(os.path.sep) if x]
     sofar = ""
     for d in dd:
