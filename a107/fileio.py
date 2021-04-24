@@ -12,7 +12,7 @@ import glob
 __all__ = [
     "rename_to_temp", "is_text_file", "add_bits_to_path", "add_parts_to_path", "crunch_dir",
     "slugify", "write_lf", "get_path", "new_filename", "temp_filename", "sequential_filename", "create_symlink", "which",
-    "ensurepath"
+    "ensurepath", "open_html"
 ]
 
 
@@ -292,3 +292,12 @@ def ensurepath(path):
         sofar += os.path.sep+d
         if not os.path.isdir(sofar):
             os.mkdir(sofar)
+
+
+def open_html(html, prefix="a107temphtml"):
+    """Saves HTML as a temporary file and opens it on the web browser."""
+    import webbrowser
+    filename = temp_filename(prefix, "html")
+    with open(filename, "w") as h:
+        h.write(html)
+    webbrowser.open(filename)

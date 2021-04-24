@@ -1,9 +1,9 @@
 """Logging routines"""
-__all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger"]
-import logging
-import sys
+import logging, sys, traceback
 from argparse import *
 from .parts import *
+__all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger",
+           "log_exception_as_info"]
 
 
 def reset_logger():
@@ -101,3 +101,10 @@ def str_exc(E):
     """Generates a string from an Exception"""
     return "{0!s}: {1!s}".format(E.__class__.__name__, str(E))
 
+
+def log_exception_as_info(logger, e, title):
+    """Logs exception as info. Should be called inside an 'except' clause
+
+    I found out that apparently the console is always polluted if we call logger.exception(), so I am calling
+    ...info() instead."""
+    logger.info(title+": "+str_exc(e)+"\n"+traceback.format_exc())

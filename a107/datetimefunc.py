@@ -3,7 +3,7 @@
 import math
 import time
 import datetime
-import dateutil
+import dateutil.parser
 import numpy as np
 
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
