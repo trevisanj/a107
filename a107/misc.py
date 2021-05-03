@@ -1,7 +1,7 @@
 """Miscellanea of miscellanea"""
 
 
-__all__ = ["random_name"]
+__all__ = ["random_name", "cowsay_what"]
 
 
 import random
@@ -59,39 +59,9 @@ def random_name(num_surnames=2):
     return " ".join(a)
 
 
-
-
-# # todo cleanup
-# # This is just for debugging
-# # http://stackoverflow.com/questions/2023608/check-what-files-are-open-in-python
-# import __builtin__
-# openfiles = set()
-# oldfile = __builtin__.file
-# class newfile(oldfile):
-#     def __init__(self, *args):
-#         self.x = args[0]
-#         print "### OPENING %s ###" % str(self.x)
-#         oldfile.__init__(self, *args)
-#         openfiles.add(self)
-#
-#     def close(self):
-#         print "### CLOSING %s ###" % str(self.x)
-#         oldfile.close(self)
-#         openfiles.remove(self)
-# oldopen = __builtin__.open
-# def newopen(*args):
-#     return newfile(*args)
-# __builtin__.file = newfile
-# __builtin__.open = newopen
-#
-# def printOpenFiles():
-#     print "### %d OPEN FILES: [%s]" % (len(openfiles), ", ".join(f.x for f in openfiles))
-# __all__.append("printOpenFiles")
-
-
-# # Logger for internal use
-# _logger = logging.getLogger(__name__)
-# _logger.addHandler(logging.NullHandler())
-
-
-
+_moo = ["please kill me", "mooooooooooo", "got some eyelashes?", "go fuck yourself", "what are you looking at?",
+"you piece of shit", "I just farted", "I fucked your mother", "you are a loser", "did you kill yourself already?",
+"I hate you", "dig a hole and bury yourself", "I like to fuck cats in the ass"]
+def cowsay_what():
+    """Returns something that would be funny for a cow to say."""
+    return random.choice(_moo)

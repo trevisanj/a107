@@ -19,6 +19,7 @@ def color2hex(color, flag_lowercase=True):
 
     Args:
         color: sequence of values. If values are instance of float and <= 1, multiplies by 255 and converts to integer
+        flag_lowercase: whether to return something like "abc10e" or "ABC10E"
 
     Returns:
         string of concatenated 2-digit hexadecimal numbers, e.g., "FE0102", which corresponds to (254, 01, 02)

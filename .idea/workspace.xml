@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="198f81f3-5a7e-4d4a-8456-85fd4dd3cfab" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/a107.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a107.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a107/datetimefunc.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/datetimefunc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a107/fileio.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/fileio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a107/loggingaux.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/loggingaux.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/misc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/parts.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/parts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/textinterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/textinterface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +44,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../yp/dv-notes" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">

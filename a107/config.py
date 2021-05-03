@@ -5,9 +5,7 @@ Gear for working with configuration files
 """
 
 from configobj import ConfigObj
-from .loggingaux import get_python_logger
 import os
-import re
 import a107
 
 __all__ = ["AAConfigObj", "get_config_obj"]

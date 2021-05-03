@@ -1,7 +1,8 @@
 """Logging routines"""
-import logging, sys, traceback
+import logging, sys, traceback, os
 from argparse import *
 from .parts import *
+from .fileio import ensurepath
 __all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger",
            "log_exception_as_info"]
 
@@ -28,7 +29,7 @@ def get_python_logger():
 
 
 def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log=None):
-    """Creates new logger"""
+    """Creates new logger (automatically creates log file directory if needed."""
     import a107
     if level is None:
         level = a107.logging_level
@@ -40,6 +41,8 @@ def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log
         fn_log = a107.fn_log
     logger = logging.Logger("a107", level=level)
     if flag_log_file:
+        dir_ = os.path.split(fn_log)[0]
+        if dir_: ensurepath(dir_)
         add_file_handler(logger, fn_log)
     if flag_log_console:
         ch = logging.StreamHandler()

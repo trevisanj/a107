@@ -24,10 +24,8 @@ COLORED_DEBUG = fg("deep_pink_1a")
 def format_color(s, fg_=None, bg_=None, attrs=None):
     """Wraps over colored for convenience"""
     aa = []
-    if fg_ is not None:
-        aa.append(fg(fg_))
-    if bg_ is not None:
-        aa.append(bg(bg_))
+    if fg_ is not None: aa.append(fg(fg_))
+    if bg_ is not None: aa.append(bg(bg_))
     if attrs is not None:
         if isinstance(attrs, str):
             attrs = [attrs]
@@ -214,7 +212,7 @@ def question(question, options, default=None):
     Args:
         question: string **without** the question mark and without the options.
             Example: 'Commit changes'
-        options_: string or sequence of strings. If string, options will be single-lettered.
+        options: string or sequence of strings. If string, options will be single-lettered.
             Examples: 'YNC', ['yes', 'no', 'cancel']. options are case-insensitive
         default: default option. If passed, default option will be shown in uppercase.
 

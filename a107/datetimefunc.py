@@ -42,6 +42,7 @@ def ts2dt(ts, flag_microseconds=True):
         ts = int(ts)
     return datetime.datetime.fromtimestamp(ts)
 
+
 v_ts2dt = np.vectorize(ts2dt)
 v_ts2dt.__doc__ = """Vectorized version of ts2dt()"""
 
