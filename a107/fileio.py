@@ -12,7 +12,7 @@ import glob
 __all__ = [
     "rename_to_temp", "is_text_file", "add_bits_to_path", "add_parts_to_path", "crunch_dir",
     "slugify", "write_lf", "get_path", "new_filename", "temp_filename", "sequential_filename", "create_symlink", "which",
-    "ensurepath", "open_html"
+    "ensure_path", "open_html"
 ]
 
 
@@ -283,7 +283,7 @@ def get_path(*args, module=a107):
     p = os.path.abspath(os.path.join(os.path.split(module.__file__)[0], *args))
     return p
 
-def ensurepath(path):
+def ensure_path(path):
     """Iteratively calls mkdir until full path exists."""
     path = os.path.abspath(os.path.expanduser(path))
     dd = [x for x in path.split(os.path.sep) if x]

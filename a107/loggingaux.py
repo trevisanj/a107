@@ -2,7 +2,7 @@
 import logging, sys, traceback, os
 from argparse import *
 from .parts import *
-from .fileio import ensurepath
+from .fileio import ensure_path
 __all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger",
            "log_exception_as_info"]
 
@@ -42,7 +42,7 @@ def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log
     logger = logging.Logger("a107", level=level)
     if flag_log_file:
         dir_ = os.path.split(fn_log)[0]
-        if dir_: ensurepath(dir_)
+        if dir_: ensure_path(dir_)
         add_file_handler(logger, fn_log)
     if flag_log_console:
         ch = logging.StreamHandler()

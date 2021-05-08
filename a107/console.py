@@ -265,6 +265,8 @@ class Console(object):
 
             try:
                 method = self.cmd.__getattribute__(name)
+                if not hasattr(method, "__call__"):
+                    raise AttributeError(f"Invalid method: '{name}'")
             except AttributeError:
                 ret = self._process_invalid_method(parts)
             else:

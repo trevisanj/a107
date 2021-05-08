@@ -12,7 +12,7 @@ __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
            "question", "format_slug", "print_file", "aargh", "format_yoda", "format_madyoda", "print_cfg",
-           "format_color"]
+           "format_color", "print_girafales"]
 
 
 NIND = 2  # Number of spaces per indentation level
@@ -516,3 +516,19 @@ def print_cfg(cfg):
     for attrname in dir(cfg):
         if not attrname.startswith("_"):
             print(f"{attrname}={repr(getattr(cfg, attrname))}")
+
+
+def print_girafales(s):
+    """Formats tabulate.tabulate()-generated output in table style. I don't know why this method has this name."""
+    lines = s.split("\n"); n = len(lines)
+    maxwidth = max(len(x) for x in lines if not x.endswith("-"))
+    for i, line in enumerate(lines):
+        line = f"{line[:maxwidth]:<{maxwidth}}"
+        a0 = ""
+        if i < 2:
+            a0 = fg("black")+bg("white")+attr("bold")
+        elif i == n-1 and len(line) > 0 and line[0] == "*":
+            a0 = attr("bold")
+        elif i/2 != int(i/2):
+            a0 = bg("dark_blue")
+        print(f"{a0}{line}{attr('reset')}")
