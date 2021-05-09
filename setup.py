@@ -16,7 +16,7 @@ setup(
     name='a107',
     packages=find_packages(),
     include_package_data=True,
-    version='21.04.13.0',
+    version='21.05.09.0',
     license='GNU GPLv3',
     platforms='any',
     description='A multi-purpose API in Python',

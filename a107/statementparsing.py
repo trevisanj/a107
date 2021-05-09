@@ -1,5 +1,6 @@
 """Statement parser for my consoles."""
 from dataclasses import dataclass
+from colored import fg, attr
 __all__ = ["str2args", "StatementError"]
 
 
@@ -85,4 +86,5 @@ def str2args(sargs):
                 elif ch == "\\":
                     flags.backslash = True
         i += 1
+    print(f"{fg('purple_4a')+attr('bold')}str2args() is still in probation phase; therefore we'll print its results:\n<<{sargs}>>\nargs={args}\nkwargs={kwargs}{attr('reset')}\n")
     return args, kwargs
