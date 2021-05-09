@@ -28,4 +28,5 @@ from .introspection import *
 from .misc import *
 from .console import *
 from .fileio import *
+from .statementparsing import *
 del logging
