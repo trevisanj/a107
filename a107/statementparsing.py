@@ -36,7 +36,6 @@ def str2args(sargs):
             flags.kwarg = False
         else: args.append(part)
         flags.inside = False
-        print(part)
 
     def error(text):
         return StatementError(sargs, i, text)

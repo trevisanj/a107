@@ -12,7 +12,7 @@ __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
            "question", "format_slug", "print_file", "aargh", "format_yoda", "format_madyoda", "print_cfg",
-           "format_color", "print_girafales"]
+           "format_color", "print_girafales", "fancilyquoted"]
 
 
 NIND = 2  # Number of spaces per indentation level
@@ -532,3 +532,7 @@ def print_girafales(s):
         elif i/2 != int(i/2):
             a0 = bg("dark_blue")
         print(f"{a0}{line}{attr('reset')}")
+
+
+def fancilyquoted(s):
+    return f"❝{s}❞"
