@@ -349,11 +349,11 @@ def format_box(title, ch="*"):
     """
     Encloses title in a box. Result is a list
 
-    >>> for line in format_box("Today's TODO list"):
+    >>> for line in format_box("Today's T.O.D.O. list"):
     ...     print(line)
-    *************************
-    *** Today's TODO list ***
-    *************************
+    *****************************
+    *** Today's T.O.D.O. list ***
+    *****************************
     """
     lt = len(title)
     return [(ch * (lt + 8)),

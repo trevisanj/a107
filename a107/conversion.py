@@ -42,8 +42,6 @@ def hex2color(hhhhhh):
     return tuple([int(hhhhhh[i:i+2], 16) for i in range(0, len(hhhhhh), 2)])
 
 
-# TODO maybe a str2bool_ex() and its counterpart
-
 def str2bool(s):
     """Understands "T"/"F" only (case-sensitive). To be used for file parsing.
 

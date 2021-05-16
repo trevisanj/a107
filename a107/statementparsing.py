@@ -21,7 +21,7 @@ class _Flags:
     kwarg: bool = False # parsing a key-value pair
     backslash: bool = False # found a backslash
 
-# TODO didn't finishe testing backslashing
+
 def str2args(sargs):
     QUOTES = ('"', "'")
     args, kwargs = [], {}

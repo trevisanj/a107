@@ -357,10 +357,3 @@ def embed_ipython(commands, globalsdict, colors="linux"):
     del mm, name, method
     locals().update(globalsdict)
     embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors)
-
-
-
-# TODO why did I have this here? Guess it was some test if __name__ == "__main__":
-#     import a107
-#     commands = a107.ConsoleCommands()
-#     console = a107.Console(cmd=commands)

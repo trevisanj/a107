@@ -1,13 +1,10 @@
 """Class & metaclass stuff"""
-
-
 from functools import wraps
 from collections import OrderedDict
 from collections import defaultdict
 
 
 __all__ = ["AttrsPart", "froze_it", "keydefaultdict", "classproperty"]
-
 
 
 def froze_it(cls):
@@ -42,11 +39,7 @@ def froze_it(cls):
 
 
 class _AAObject(object):
-    """
-    Implements "meta" property (used to store history, etc.)
-
-    TODO making use of this 'meta' is for the future
-    """
+    """Implements "meta" property (used to store history, etc.)."""
 
     @property
     def classname(self):
