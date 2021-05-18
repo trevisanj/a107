@@ -29,4 +29,5 @@ from .misc import *
 from .console import *
 from .fileio import *
 from .statementparsing import *
+from .filesqlitedb import *
 del logging
