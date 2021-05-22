@@ -30,4 +30,5 @@ from .console import *
 from .fileio import *
 from .statementparsing import *
 from .filesqlitedb import *
+from .asciichart import *
 del logging

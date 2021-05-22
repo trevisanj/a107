@@ -356,4 +356,7 @@ def embed_ipython(commands, globalsdict, colors="linux"):
 
     del mm, name, method
     locals().update(globalsdict)
-    embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors)
+    # I inspected the source code for embed() and saw that "autoawait" (which I want to be true) is conditioned to
+    # the "using" kwarg, which I found to require a module name ar value, so I just did using="asyncio" and now
+    # I can call "await xxxxx"
+    embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors, using="asyncio")

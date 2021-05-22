@@ -12,7 +12,7 @@ __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
            "question", "format_slug", "print_file", "aargh", "format_yoda", "format_madyoda", "print_cfg",
-           "format_color", "print_girafales", "fancilyquoted"]
+           "format_color", "print_girafales", "fancilyquoted", "format_h"]
 
 
 NIND = 2  # Number of spaces per indentation level
@@ -101,6 +101,10 @@ def format_underline(s, char="=", indents=0):
     n = len(s)
     ind = " " * indents
     return ["{}{}".format(ind, s), "{}{}".format(ind, char*n)]
+
+
+def format_h(i, s, format="text", indents=0):
+    return {1: format_h1, 2: format_h2, 3: format_h3, 4: format_h4}[i](s, format, indents)
 
 
 def format_h1(s, format="text", indents=0):
@@ -521,11 +525,14 @@ def print_cfg(cfg):
 def print_girafales(s):
     """Formats tabulate.tabulate()-generated output in table style. I don't know why this method has this name."""
     lines = s.split("\n"); n = len(lines)
+    sepindex = [line.startswith("-") for line in lines].index(True)
     maxwidth = max(len(x) for x in lines if not x.endswith("-"))
     for i, line in enumerate(lines):
         line = f"{line[:maxwidth]:<{maxwidth}}"
         a0 = ""
-        if i < 2:
+        if i < sepindex-1:
+            a0 = attr("bold")+fg("light_yellow")
+        elif i <= sepindex:
             a0 = fg("black")+bg("white")+attr("bold")
         elif i == n-1 and len(line) > 0 and line[0] == "*":
             a0 = attr("bold")
