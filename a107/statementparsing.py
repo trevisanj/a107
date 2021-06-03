@@ -85,5 +85,5 @@ def str2args(sargs):
                 elif ch == "\\":
                     flags.backslash = True
         i += 1
-    print(f"{fg('purple_4a')+attr('bold')}str2args() is still in probation phase; therefore we'll print its results:\n<<{sargs}>>\nargs={args}\nkwargs={kwargs}{attr('reset')}\n")
+    # print(f"{fg('purple_4a')+attr('bold')}str2args() is still in probation phase; therefore we'll print its results:\n<<{sargs}>>\nargs={args}\nkwargs={kwargs}{attr('reset')}\n")
     return args, kwargs

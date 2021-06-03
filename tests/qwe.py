@@ -1,13 +1,4 @@
-import a107
+import a107, datetime
 
-statements = ['energumeno"',
-              "Teu cu",
-              '"baba" =       "\\\\"         "caca"'
-              ]
-for statement in statements:
-    try:
-        args, kwargs = a107.str2args(statement)
-        print(statement, "--->", args, kwargs)
-        pass
-    except a107.StatementError as e:
-        print(e.explain())
+ts = a107.dt2ts(datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc))
+print(ts)

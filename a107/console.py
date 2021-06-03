@@ -356,7 +356,16 @@ def embed_ipython(commands, globalsdict, colors="linux"):
 
     del mm, name, method
     locals().update(globalsdict)
+
     # I inspected the source code for embed() and saw that "autoawait" (which I want to be true) is conditioned to
     # the "using" kwarg, which I found to require a module name ar value, so I just did using="asyncio" and now
     # I can call "await xxxxx"
+    #
+    # The use of nest_asyncio was suggested in https://stackoverflow.com/questions/56415470/calling-ipython-embed-in-asynchronous-code-specifying-the-event-loop
+    # This allows me to "await on" before embedding IPython, i.e., can create "async def main(...)", do whatever asynchronous initialization, then embed.
+    import nest_asyncio
+    nest_asyncio.apply()
     embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors, using="asyncio")
+    # embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors)
+
+
