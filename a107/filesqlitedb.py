@@ -83,25 +83,28 @@ class FileSQLite:
 
     def create_database(self, flag_overwrite=False):
         """Creates database if it does not exist or if forced overwriting."""
-        exists = os.path.isfile(self.path)
+        is_memory = self.path == ":memory:"
+        f_exists = lambda: is_memory and self.conn and self.show_tables().rowcount > 0 or os.path.isfile(self.path)
         flag_delete = False
         try:
-            if not exists or flag_overwrite:
-                if exists:
-                    self.logger.info(f"Deleting file '{self.path}'...")
-                    self.close(); os.unlink(self.path)
+            if not f_exists() or flag_overwrite:
+                if f_exists():
+                    self.logger.debug(f"Deleting file '{self.path}'...")
+                    self.close()
+                    if not is_memory: os.unlink(self.path)
                 try:
                     self._initialize()
                 except:
                     flag_delete = True
                     raise
                 self.commit()
-                self.logger.info(f"Created file '{self.path}'")
+                self.logger.debug(f"Created file '{self.path}'")
         except:
             if flag_delete:
-                if os.path.isfile(self.path):
-                    self.close(); os.unlink(self.path)
-                    self.logger.info(f"Deleted file '{self.path}' because initialization failed.")
+                if f_exists():
+                    self.close()
+                    if not is_memory: os.unlink(self.path)
+                    self.logger.debug(f"Deleted file '{self.path}' because initialization failed.")
             raise
 
     def get_scalar(self, *args, **kwargs):
@@ -138,3 +141,11 @@ class FileSQLite:
     def interrupt(self, *args, **kwargs):
         return self.conn.interrupt(*args, **kwargs)
 
+    def insert_from_dicts(self, tablename, dicts):
+        """Inserts many rows from list of dicts. Field names are taken from first dict."""
+        fieldnames = list(dicts[0].keys())
+        rows = (tuple(row.values()) for row in dicts)
+        fields = ", ".join(fieldnames)
+        values = ",".join(["?"]*len(fieldnames))
+        sql = f"insert into {tablename} ({fields}) values ({values})"
+        self.conn.executemany(sql, rows)
