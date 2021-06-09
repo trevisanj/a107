@@ -1,19 +1,8 @@
 """
 Console class adapted from cliserv client+server.
 """
-
-import os
-import atexit
-import sys
-import signal
-import readline
+import os, atexit, sys, signal, readline, re, csv, random, inspect, textwrap, a107
 from colored import fg, bg, attr
-import re
-import csv
-import random
-import inspect
-import textwrap
-import a107
 
 __all__ = ["ConsoleCommands", "Console", "ConsoleError", "console_bool", "embed_ipython"]
 
@@ -273,6 +262,8 @@ class Console(object):
                 # Some basic conversion
                 parts_ = [None if x == "None" else x for x in parts]
                 ret = method(*parts_[1:])
+
+
 
         except ConsoleError as e:
             raise
