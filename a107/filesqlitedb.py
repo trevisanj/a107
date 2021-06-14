@@ -53,6 +53,7 @@ class FileSQLite:
 
             self.__conn = sqlite3.connect(self.path, detect_types=sqlite3.PARSE_DECLTYPES)
             self.__conn.row_factory = sqlite3.Row
+            # self.__conn.isolation_level = None
         return self.__conn
 
     @property

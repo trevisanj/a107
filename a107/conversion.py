@@ -7,11 +7,28 @@ Note: date- and time- related conversion routines are in the datetimefunc module
 __all__ = [
 "str2bool", "to_bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
 "module2dict", "unicode2greek",
-"greek2unicode", "make_code_readable", "int2superscript", "color2hex", "hex2color"]
+"greek2unicode", "make_code_readable", "int2superscript", "color2hex", "hex2color",
+"rowsheader2dictlist", "ffmt"]
 
 
 import math
 import re
+
+
+def rowsheader2dictlist(rows, header):
+    """Converts data such as used in tabulate.tabulate() to the heavily "fieldname"-redundant list of dicts.
+
+    >>> a107.rowsheader2dictlist(((1, "John"), (2, "Terry"), (3, "Eric"), (4, "Graham"), (5, "Michael")), ("Id", "Name"))
+    [{'Id': 1, 'Name': 'John'},
+     {'Id': 2, 'Name': 'Terry'},
+     {'Id': 3, 'Name': 'Eric'},
+     {'Id': 4, 'Name': 'Graham'},
+     {'Id': 5, 'Name': 'Michael'}]
+    """
+    ret = []
+    for row in rows:
+        ret.append({key: value for key, value in zip(header, row)})
+    return ret
 
 
 def color2hex(color, flag_lowercase=True):
@@ -280,3 +297,36 @@ def int2superscript(i):
 
     return "".join((_INT_TO_SUPERSCRIPT[int(ch)] for ch in str(i)))
 
+
+def ffmt(f, maxsig=6, maxdec=10):
+    """Formats float number in float format with maximum number of significant digits.
+    Args:
+        f: float number to be formatted
+        maxsig: maximum number of significant digits
+        maxdex: maximum number of decimals (after which f will be rounded in any case)
+
+    Returns: str
+
+    >>> ffmt(0.000000079)
+    '0.000000079'
+    >>> ffmt(0.00000007999)
+    '0.00000008'
+    >>> ffmt(12345678.123457)
+    '12345700.'
+    """
+    s = f"{f:.{maxdec}f}"
+    dotpos = s.index(".")
+    s = s.replace(".", "")
+    s = s.rstrip("0")
+    n = len(s)
+    s = s.lstrip("0")
+    numleadingzeros = n-len(s)
+    n = len(s)
+    if n > maxsig:
+        s = str(round(int(s)/10**(n-maxsig)))
+    s = "0"*numleadingzeros+s
+    n = len(s)
+    if n < dotpos:
+        s += "0"*(dotpos-n)
+    s = (s[:dotpos]+"."+s[dotpos:])
+    return s
