@@ -7,21 +7,26 @@ import glob
 import importlib
 import inspect
 import time
+from .fileio import slugify
 
 
 __all__ = ["import_module", "collect_doc",
            "get_classes_in_module", "get_obj_doc0", "get_subpackages_names"]
 
 
-def import_module(filename):
+def import_module(filename, as_=None):
     """
     Returns module object
 
+    Args:
+        filename: full path to file
+        as_: module __name__; defaults to base file name
+
     Source: https://www.blog.pythonlibrary.org/2016/05/27/python-201-an-intro-to-importlib/
     """
-    module_name = "xyz"
+    if as_ is None: as_ = os.path.splitext(os.path.split(filename)[1])[0]
 
-    module_spec = importlib.util.spec_from_file_location(module_name, filename)
+    module_spec = importlib.util.spec_from_file_location(as_, filename)
 
     if module_spec is None:
         raise RuntimeError("Python cannot import file '{}'".format(filename))

@@ -32,25 +32,14 @@
     <setting file="file://$PROJECT_DIR$/../serverlib/serverlib/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../tabulateme/tabulateme/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../pl3/pl3b/base/pipeline.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/dtft.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/doc/binancemarkets.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/doc/binanceticker.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/scripts/upc.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../pl3/pl3b/base/broker.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/doc/responseheader.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/ANGUISH.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/data_as_code.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/a107/textinterface.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/.cache/JetBrains/PyCharmCE2021.1/python_stubs/-1226544914/builtins.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/config.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../pl3/pl3/base/h5maintainer.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/basic.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/dataprocessing/dpaux.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/dataprocessing/dpclasses.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../tabulateme/README.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/fetch_all_series.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/upekkhatoolbox.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/doc/ordercancelresult.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/doc/sampleorders.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/setup.py" root0="FORCE_HIGHLIGHTING" />
@@ -73,7 +62,6 @@
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/ccxtconsole/configs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/a107/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../pl3/pl3/timedata/base.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/plot_all_series.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../serverlib/serverlib/intelligence.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../sacca/lab/asyncshit/cancel03.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ccxtconsole/ccxtconsole/scripts/ccxtconsoleserver.py" root0="FORCE_HIGHLIGHTING" />
@@ -82,6 +70,8 @@
     <setting file="file://$PROJECT_DIR$/../sacca/sacca/configs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../sacca/lab/my_trades/my_trades.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Programs/miniconda3/lib/python3.9/asyncio/tasks.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/__init__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../upekkha/ANGUISH.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/a107/asciichart.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../sacca/sacca/api/taskprocessors.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/Programs/miniconda3/lib/python3.9/site-packages/colored-1.4.2-py3.9.egg!/colored/colored.py" root0="FORCE_HIGHLIGHTING" />
@@ -100,7 +90,6 @@
     <setting file="file://$PROJECT_DIR$/setup.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/a107/search.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../pl3/pl3b/base/block.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../upekkha/upekkha/dataprocessing/printers/op.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1YS5VgIeyRvDrWLUXairGaSjydA" />
   <component name="ProjectViewState">
