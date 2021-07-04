@@ -8,7 +8,7 @@ __all__ = [
 "str2bool", "to_bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
 "module2dict", "unicode2greek",
 "greek2unicode", "make_code_readable", "int2superscript", "color2hex", "hex2color",
-"rowsheader2dictlist", "ffmt"]
+"rowsheader2dictlist", "ffmt", "smartfloat"]
 
 
 import math
@@ -297,6 +297,9 @@ def int2superscript(i):
 
     return "".join((_INT_TO_SUPERSCRIPT[int(ch)] for ch in str(i)))
 
+def smartfloat(f, maxsig=6, maxdec=10):
+    """Float version of ffmt() (useful e.g. in order to let tabulate.tabulate() align floats)."""
+    return float(ffmt(f, maxsig, maxdec))
 
 def ffmt(f, maxsig=6, maxdec=10):
     """Formats float number in float format with maximum number of significant digits.
