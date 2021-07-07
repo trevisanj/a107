@@ -317,6 +317,8 @@ def ffmt(f, maxsig=6, maxdec=10):
     >>> ffmt(12345678.123457)
     '12345700.'
     """
+    flag_neg = f < 0
+    f = abs(f)
     s = f"{f:.{maxdec}f}"
     dotpos = s.index(".")
     s = s.replace(".", "")
@@ -332,4 +334,6 @@ def ffmt(f, maxsig=6, maxdec=10):
     if n < dotpos:
         s += "0"*(dotpos-n)
     s = (s[:dotpos]+"."+s[dotpos:])
+    if flag_neg:
+        s = "-"+s
     return s
