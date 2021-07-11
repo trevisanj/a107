@@ -31,4 +31,6 @@ from .fileio import *
 from .statementparsing import *
 from .filesqlitedb import *
 from .asciichart import *
+from .npmaths import *
+from .maths import *
 del logging

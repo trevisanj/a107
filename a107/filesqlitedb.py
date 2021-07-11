@@ -73,7 +73,8 @@ class FileSQLite:
         self.close()
 
     # OVERRIDABLE
-    def _initialize(self):
+
+    def _do_create_database(self):
         """Override this to create the database. Don't worry about commit()."""
 
     # INTERFACE
@@ -94,7 +95,7 @@ class FileSQLite:
                     self.close()
                     if not is_memory: os.unlink(self.path)
                 try:
-                    self._initialize()
+                    self._do_create_database()
                 except:
                     flag_delete = True
                     raise
@@ -126,6 +127,13 @@ class FileSQLite:
     def get_singlecolumn(self, *args, **kwargs):
         """Executes statement that presumably fechers one column per row."""
         return [row[0] for row in self.execute(*args, **kwargs)]
+
+    def get_singlerow(self, *args, **kwargs):
+        """Executes statement that presumably fechers only one row."""
+        _ret = self.execute(*args, **kwargs).fetchall()
+        if len(_ret) != 1:
+            raise ValueError(f"Statement must produce number of rows ==1, not {len(_ret)}")
+        return _ret[0]
 
     def execute(self, *args, **kwargs):
         return self.conn.execute(*args, **kwargs)

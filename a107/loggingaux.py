@@ -104,6 +104,7 @@ def str_exc(E):
     """Generates a string from an Exception"""
     return "{0!s}: {1!s}".format(E.__class__.__name__, str(E))
 
+format_exc = str_exc
 
 def log_exception_as_info(logger, e, title):
     """Logs exception as info. Should be called inside an 'except' clause

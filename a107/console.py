@@ -36,7 +36,7 @@ class ConsoleCommands(object):
     # └─┘ └┘ └─┘┴└─┴└─┴─┴┘└─┘  ┴ ┴└─┘
 
     def _get_welcome0(self):
-        return f"Welcome to {self.console.slug}"
+        return f"Welcome to {self.console.title}"
 
     # ┌┐ ┌─┐┌─┐┬┌─┐  ┌─┐┌─┐┌┬┐┌┬┐┌─┐┌┐┌┌┬┐┌─┐
     # ├┴┐├─┤└─┐││    │  │ │││││││├─┤│││ ││└─┐
@@ -50,7 +50,7 @@ class ConsoleCommands(object):
         if what is None:
             mm = [x for x in inspect.getmembers(self, predicate=inspect.ismethod) if not x[0].startswith("_")]
 
-            lines = [self.console.slug, "=" * len(self.console.slug), ""]
+            lines = [self.console.slug, "="*len(self.console.slug), ""]
 
             if self.console.description:
                 lines += [self.console.description, ""]
@@ -281,7 +281,7 @@ def _yoda(s, happy=True):
 
 def _my_print_exception(e):
     print("{}{}({}){}{} {}{}".format(COLOR_EXCEPTION, attr("bold"), e.__class__.__name__,
-                                      attr("reset"), COLOR_EXCEPTION, str(e), attr("reset")))
+                                     attr("reset"), COLOR_EXCEPTION, str(e), attr("reset")))
 
 def _myprint(x):
     """Used to print results from client statements.
@@ -356,7 +356,7 @@ def embed_ipython(commands, globalsdict, colors="linux"):
     # This allows me to "await on" before embedding IPython, i.e., can create "async def main(...)", do whatever asynchronous initialization, then embed.
     import nest_asyncio
     nest_asyncio.apply()
-    embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors, using="asyncio")
+    embed(header="\n".join(a107.format_slug(commands.name())), colors=colors, using="asyncio")
     # embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors)
 
 
