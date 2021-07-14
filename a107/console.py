@@ -356,7 +356,7 @@ def embed_ipython(commands, globalsdict, colors="linux"):
     # This allows me to "await on" before embedding IPython, i.e., can create "async def main(...)", do whatever asynchronous initialization, then embed.
     import nest_asyncio
     nest_asyncio.apply()
-    embed(header="\n".join(a107.format_slug(commands.name())), colors=colors, using="asyncio")
+    embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors, using="asyncio")
     # embed(header="\n".join(a107.format_slug(commands.slug())), colors=colors)
 
 
