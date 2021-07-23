@@ -1,5 +1,7 @@
 """Routines that somehow look into the package itself"""
 
+__all__ = ["import_module", "collect_doc",
+           "get_classes_in_module", "get_obj_doc0", "get_subpackages_names"]
 
 import os
 import glob
@@ -8,10 +10,6 @@ import importlib
 import inspect
 import time
 from .fileio import slugify
-
-
-__all__ = ["import_module", "collect_doc",
-           "get_classes_in_module", "get_obj_doc0", "get_subpackages_names"]
 
 
 def import_module(filename, as_=None):
@@ -33,7 +31,7 @@ def import_module(filename, as_=None):
 
     module = importlib.util.module_from_spec(module_spec)
     module_spec.loader.exec_module(module)
-    # print(dir(module))
+    # print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", dir(module))
     #
     # msg = 'The {module_name} module has the following methods:' \
     #       ' {methods}'
@@ -47,11 +45,11 @@ def collect_doc(module, base_class=None, prefix="", flag_exclude_prefix=False):
     """
     Collects class names and docstrings in module for classes starting with prefix
 
-    Arguments:
-        module -- Python module
-        prefix -- argument for str.startswith(); if not passed, does not filter
-        base_class -- filters only descendants of this class
-        flag_exclude_prefix -- whether or not to exclude prefix from class name in result
+    Args:
+        module: Python module
+        prefix: argument for str.startswith(); if not passed, does not filter
+        base_class: filters only descendants of this class
+        flag_exclude_prefix: whether or not to exclude prefix from class name in result
 
     Returns: [(classname0, signature, docstring0), ...]
     """

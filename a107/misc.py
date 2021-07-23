@@ -63,5 +63,5 @@ _moo = ["please kill me", "mooooooooooo", "got some eyelashes?", "go fuck yourse
 "you piece of shit", "I just farted", "I fucked your mother", "you are a loser", "did you kill yourself already?",
 "I hate you", "dig a hole and bury yourself", "I like to fuck cats in the ass"]
 def cowsay_what():
-    """Returns something that would be funny for a cow to say."""
+    """Returns something that would be appropriate for a cow to say."""
     return random.choice(_moo)

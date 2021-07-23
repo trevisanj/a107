@@ -275,13 +275,14 @@ def get_path(*args, module=a107):
 
     Args:
       *args: are added at the end of module path with os.path.join()
-      module: Python module, defaults to a99
+      module: Python module, defaults to a107
 
     Returns: path string
     """
 
     p = os.path.abspath(os.path.join(os.path.split(module.__file__)[0], *args))
     return p
+
 
 def ensure_path(path):
     """Iteratively calls mkdir until full path exists."""
@@ -295,7 +296,12 @@ def ensure_path(path):
 
 
 def open_html(html, prefix="a107temphtml"):
-    """Saves HTML as a temporary file and opens it on the web browser."""
+    """Saves HTML as a temporary file and opens it on the web browser.
+
+    Args:
+        html: str containing HTML content
+        prefix: prefix for temp_filename()
+    """
     import webbrowser
     filename = temp_filename(prefix, "html")
     with open(filename, "w") as h:

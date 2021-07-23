@@ -4,7 +4,7 @@ from colored import attr
 
 
 def asciichart(sequences, cfg=None, maxlines=100, legend=None, indent=0):
-    """Wraps asciichartpy.plot() to do a few things before calling it.
+    """Wraps plot() (forked from asciichartpy) to do a few things before calling it.
 
     Actions:
         - fixes y-axis numbers alignment

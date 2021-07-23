@@ -68,8 +68,9 @@ def dt2ts(dt):
     ret = dt.timestamp()
     return ret
 
+
 def ts2dt(ts, tz=None):
-    """Converts timestamp to (timezone-naïve, local) datetime.
+    """Converts timestamp to datetime.
 
     My timezone is GMT-3, so it gives me my time when UK was seeing the "epoch":
 

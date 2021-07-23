@@ -1,7 +1,8 @@
 """Statement parser for my consoles."""
-from dataclasses import dataclass
-from colored import fg, attr
+
 __all__ = ["str2args", "StatementError"]
+
+from dataclasses import dataclass
 
 
 class StatementError(Exception):

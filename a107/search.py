@@ -30,11 +30,11 @@ def index_nearest(array, value):
 def BSearch(a, x, lo=0, hi=None):
     """Returns index of x in a, or -1 if x not in a.
 
-    Arguments:
-      a -- ordered numeric sequence
-      x -- element to search within a
-      lo -- lowest index to consider in search*
-      hi -- highest index to consider in search*
+    Args:
+      a: ordered numeric sequence
+      x: element to search within a
+      lo: lowest index to consider in search*
+      hi: highest index to consider in search*
 
     *bisect.bisect_left capability that we don't need to loose."""
     if len(a) == 0: return -1
@@ -46,11 +46,11 @@ def BSearch(a, x, lo=0, hi=None):
 def BSearchRound(a, x, lo=0, hi=None):
     """Returns index of a that is closest to x.
 
-    Arguments:
-      a -- ordered numeric sequence
-      x -- element to search within a
-      lo -- lowest index to consider in search*
-      hi -- highest index to consider in search*
+    Args:
+      a: ordered numeric sequence
+      x: element to search within a
+      lo: lowest index to consider in search*
+      hi: highest index to consider in search*
 
     *bisect.bisect_left capability that we don't need to loose."""
     if len(a) == 0: return -1
@@ -71,11 +71,11 @@ def BSearchCeil(a, x, lo=0, hi=None):
     So, if x is in between two elements in a, this function will return the
     index of the higher element, hence "Ceil".
 
-    Arguments:
-      a -- ordered numeric sequence
-      x -- element to search within a
-      lo -- lowest index to consider in search
-      hi -- highest index to consider in search"""
+    Args:
+      a: ordered numeric sequence
+      x: element to search within a
+      lo: lowest index to consider in search
+      hi: highest index to consider in search"""
     if len(a) == 0: return -1
     hi = hi if hi is not None else len(a)
     pos = bisect_left(a, x, lo, hi)
@@ -88,11 +88,11 @@ def BSearchFloor(a, x, lo=0, hi=None):
     So, if x is in between two elements in a, this function will return the
     index of the lower element, hence "Floor".
 
-    Arguments:
-      a -- ordered numeric sequence
-      x -- element to search within a
-      lo -- lowest index to consider in search
-      hi -- highest index to consider in search"""
+    Args:
+      a: ordered numeric sequence
+      x: element to search within a
+      lo: lowest index to consider in search
+      hi: highest index to consider in search"""
     if len(a) == 0: return -1
     hi = hi if hi is not None else len(a)
     pos = bisect_left(a, x, lo, hi)

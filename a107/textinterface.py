@@ -546,13 +546,14 @@ def fancilyquoted(s):
 
 
 def print_polluted(msg, numcols=100):
+    """Use this with a nasty short message when I am angry with code that doesn't work properly."""
     for ch in msg:
         if ch == " ": print()
         else: print(ch*numcols)
 
 
 def kebab(s, width):
-    """reformats paragraph(s) for given width.
+    """Reformats paragraph(s) for given width.
 
     Single newlines are converted to spaces, then text wrap is applied. Double newlines are kept.
 

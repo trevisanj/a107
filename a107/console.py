@@ -1,5 +1,7 @@
 """
 Console class adapted from cliserv client+server.
+
+20210723 Good son returns home. Now there is serverlib.Console which made this deprecated.
 """
 import os, atexit, sys, signal, readline, re, csv, random, inspect, textwrap, a107
 from colored import fg, bg, attr

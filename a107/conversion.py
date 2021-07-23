@@ -297,16 +297,21 @@ def int2superscript(i):
 
     return "".join((_INT_TO_SUPERSCRIPT[int(ch)] for ch in str(i)))
 
+
+#-----------------------------------------------------------------------------------------------------------------------
+# The floating-point formatting solution
+
 def smartfloat(f, maxsig=6, maxdec=10):
     """Float version of ffmt() (useful e.g. in order to let tabulate.tabulate() align floats)."""
     return float(ffmt(f, maxsig, maxdec))
+
 
 def ffmt(f, maxsig=6, maxdec=10):
     """Formats float number in float format with maximum number of significant digits.
     Args:
         f: float number to be formatted
         maxsig: maximum number of significant digits
-        maxdex: maximum number of decimals (after which f will be rounded in any case)
+        maxdec: maximum number of decimals (after which f will be rounded in any case)
 
     Returns: str
 
