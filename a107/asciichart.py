@@ -2,6 +2,7 @@ __all__ = ["asciichart"]
 
 from colored import attr
 
+# TODO poor treatment of decimals (this is always a challenge)
 
 def asciichart(sequences, cfg=None, maxlines=100, legend=None, indent=0):
     """Wraps plot() (forked from asciichartpy) to do a few things before calling it.
