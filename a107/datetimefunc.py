@@ -157,8 +157,15 @@ def to_datetime(arg):
 def to_timestamp(arg):
     """Tries to convert anything into a timestamp. This method is timezone-aware (as it eventually uses dt2ts())."""
     if isinstance(arg, float): return arg
-    dt = to_datetime(arg)
-    ret = dt2ts(dt)
+    flag_try_float = False
+    try:
+        dt = to_datetime(arg)
+    except:
+        flag_try_float = True
+    if flag_try_float:
+        ret = float(arg)
+    else:
+        ret = dt2ts(dt)
     return ret
 
 
