@@ -1,4 +1,3 @@
-import a107, datetime
+import a107
 
-ts = a107.dt2ts(datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc))
-print(ts)
+print(a107.ffmt(99.96099660910512, maxsig=3))

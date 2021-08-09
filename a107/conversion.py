@@ -333,7 +333,9 @@ def ffmt(f, maxsig=6, maxdec=10):
     numleadingzeros = n-len(s)
     n = len(s)
     if n > maxsig:
+        s0 = s[0]
         s = str(round(int(s)/10**(n-maxsig)))
+        if s0 != s[0]: dotpos += 1  # rounding such as 99.99 -> 100 occurred
     s = "0"*numleadingzeros+s
     n = len(s)
     if n < dotpos:
