@@ -1,6 +1,7 @@
 __all__ = ["asciichart"]
 
 from colored import attr
+import a107
 
 # TODO poor treatment of decimals (this is always a challenge)
 
@@ -260,16 +261,34 @@ def plot(series, cfg=None):
         width = max(width, len(series[i]))
     width += offset
 
-    placeholder = cfg.get('format', '{:8.2f} ')
-
     result = [[' '] * width for i in range(rows + 1)]
 
     # axis and labels
+    # placeholder = cfg.get('format', '{:8.2f} ')
+    # axissymbols = default_symbols
+    # for y in range(min2, max2 + 1):
+    #     label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
+    #     result[y - min2][max(offset - len(label), 0)] = label
+    #     result[y - min2][offset - 1] = axissymbols[0] if y == 0 else axissymbols[1]  # zero tick mark
     axissymbols = default_symbols
-    for y in range(min2, max2 + 1):
-        label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
-        result[y - min2][max(offset - len(label), 0)] = label
-        result[y - min2][offset - 1] = axissymbols[0] if y == 0 else axissymbols[1]  # zero tick mark
+    if "format" in cfg:
+        placeholder = cfg.get('format', '{:8.2f} ')
+        for y in range(min2, max2 + 1):
+            label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
+            result[y - min2][max(offset - len(label), 0)] = label
+            result[y - min2][offset - 1] = axissymbols[0] if y == 0 else axissymbols[1]  # zero tick mark
+    else:
+        maxsig = cfg.get("maxsig", 6)
+        labels = [a107.ffmt(maximum-((y-min2)*interval/(rows if rows else 1)), maxsig=maxsig)
+                  for y in range(min2, max2+1)]
+        maxdotpos = max(_label.index(".") for _label in labels)
+        labels = [" "*(maxdotpos-label.index("."))+label for label in labels]
+        maxlen = max(len(label) for label in labels)
+        labels = [label+"0"*(maxlen-len(label)) for label in labels]
+        for y, label in zip(range(min2, max2 + 1), labels):
+            result[y - min2][max(offset - len(label), 0)] = label
+            result[y - min2][offset - 1] = axissymbols[0] if y == 0 else axissymbols[1]  # zero tick mark
+
 
     # first value is a tick mark across the y-axis
     d0 = series[0][0]
