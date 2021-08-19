@@ -1,7 +1,7 @@
 """Routines that somehow look into the package itself"""
 
 __all__ = ["import_module", "collect_doc",
-           "get_classes_in_module", "get_obj_doc0", "get_subpackages_names"]
+           "get_classes_in_module", "get_obj_doc0", "get_subpackages_names", "get_argsdict"]
 
 import os
 import glob
@@ -121,3 +121,9 @@ def get_subpackages_names(dir_):
     ret.sort()
     return ret
 
+
+def get_argsdict(method, locals_):
+    """Extracts method's argument values from local variables."""
+    sig = inspect.signature(method)
+    data = {paramname: locals_[paramname] for paramname in sig.parameters if paramname not in ("self",)}
+    return data

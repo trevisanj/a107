@@ -9,7 +9,7 @@ import math, datetime, dateutil.parser, numpy as np
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
            "time2seconds", "seconds2time", "to_datetime", "str2ts", "iso8601_to_float",
            "float_to_iso8601", "dt2slug", "v_ts2dt", "to_timestamp", "tzinfo_tz", "utc",
-           "now_ts"]
+           "now_ts", "human2ts"]
 
 utc = datetime.timezone.utc
 
@@ -108,11 +108,24 @@ def dt2slug(dt):
     return dt.strftime(_FMTSTAMP if isinstance(dt, datetime.datetime) else _FMT1)
 
 
-def str2dt(s, tzinfo=None):
-    """Converts str to datetime."""
-    fmt = _FMT1 if len(s) == 8 \
-          else _FMTS if s.count(":") == 2 else _FMT if s.count(":") == 1 \
-          else _FMT0
+def str2dt(s, tzinfo=None, flag_utc_for_dates=False):
+    """Converts str to datetime.
+
+    Args:
+        s:
+        tzinfo: tzinfo for the date
+        flag_utc_for_dates: whether to use UCT tzinfo if the string contains only date and not time
+    """
+    if len(s) == 8:
+        fmt = _FMT1
+        if flag_utc_for_dates: tzinfo = utc
+    elif s.count(":") == 2:
+        fmt = _FMTS
+    elif s.count(":") == 1:
+        fmt = _FMT
+    else:
+        fmt = _FMT0
+        if flag_utc_for_dates: tzinfo = utc
     ret = datetime.datetime.strptime(s, fmt)
     if tzinfo is not None: ret = ret.replace(tzinfo=tzinfo)
     return ret
@@ -129,11 +142,17 @@ def str2ts(s, tzinfo=None):
     return dt2ts(str2dt(s, tzinfo=tzinfo))
 
 
-def to_datetime(arg):
+def to_datetime(arg, flag_utc_for_dates=False):
     """Tries to convert any type of argument to datetime.
 
-    Special values:
-        "?": will be converted to 1970-1-1
+    Args:
+        arg: special values:
+            "?": will be converted to 1970-1-1
+            "now": will be converted to datetime.datetime.now()
+        flag_utc_for_dates: whether to use UCT tzinfo if the string contains only date and not time
+
+    Returns:
+        datetime.datetime
     """
     if isinstance(arg, datetime.datetime):
         return arg
@@ -143,9 +162,9 @@ def to_datetime(arg):
         elif arg == "?":
             arg = datetime.datetime(1970, 1, 1)
         else:
-            arg = str2dt(arg)
+            arg = str2dt(arg, flag_utc_for_dates=flag_utc_for_dates)
     elif isinstance(arg, datetime.date):
-        arg = date2datetime(arg)
+        arg = date2datetime(arg, tzinfo=a107.utc if flag_utc_for_dates else None)
     elif isinstance(arg, (int, float)):
         # Suppose it is a timestamp
         arg = ts2dt(arg)
@@ -154,12 +173,23 @@ def to_datetime(arg):
     return arg
 
 
-def to_timestamp(arg):
-    """Tries to convert anything into a timestamp. This method is timezone-aware (as it eventually uses dt2ts())."""
+def to_timestamp(arg, flag_utc_for_dates=False):
+    """Tries to convert anything into a timestamp. This method is timezone-aware (as it eventually uses dt2ts()).
+
+    Args:
+        arg: special values:
+            "?": will be converted to 1970-1-1
+            "now": will be converted to datetime.datetime.now()
+        flag_utc_for_dates: whether to use UCT tzinfo if the string contains only date and not time
+
+    Returns:
+        timestamp: float
+
+    """
     if isinstance(arg, float): return arg
     flag_try_float = False
     try:
-        dt = to_datetime(arg)
+        dt = to_datetime(arg, flag_utc_for_dates)
     except:
         flag_try_float = True
     if flag_try_float:
@@ -167,6 +197,11 @@ def to_timestamp(arg):
     else:
         ret = dt2ts(dt)
     return ret
+
+
+def human2ts(arg):
+    """Similiar to to_timestamp(), but converts date-only strings using UTC timezone."""
+    return to_timestamp(arg, True)
 
 
 def iso8601_to_float(s):
