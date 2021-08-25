@@ -8,12 +8,20 @@ __all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "S
 
 
 def reset_logger():
-    global _python_logger
+    global _python_logger, _fmtr
     _python_logger = None
+    _fmtr = None
 
 _python_logger = None
-_fmtr = logging.Formatter('[%(levelname)-8s] %(message)s')
-def get_python_logger():
+_fmtr = None
+def _get_fmtr():
+    global _fmtr
+    if _fmtr is None:
+        import a107
+        _fmtr = logging.Formatter(a107.logging_fmt)
+    return _fmtr
+
+def get_python_logger(name=None):
     """Returns logger to receive Python messages.
 
     At first call, _python_logger is created. At subsequent calls, _python_logger is returned. 
@@ -23,14 +31,16 @@ def get_python_logger():
     import a107
     global _python_logger
     if _python_logger is None:
-        _python_logger = get_new_logger()
+        _python_logger = get_new_logger(name=name)
 
     return _python_logger
 
 
-def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log=None):
+def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log=None, name=None):
     """Creates new logger (automatically creates log file directory if needed."""
     import a107
+    if name is None:
+        name = a107.logging_name
     if level is None:
         level = a107.logging_level
     if  flag_log_console is None:
@@ -39,14 +49,14 @@ def get_new_logger(level=None, flag_log_console=None, flag_log_file=None, fn_log
         flag_log_file = a107.flag_log_file
     if  fn_log is None:
         fn_log = a107.fn_log
-    logger = logging.Logger("a107", level=level)
+    logger = logging.Logger(name, level=level)
     if flag_log_file:
         dir_ = os.path.split(fn_log)[0]
         if dir_: ensure_path(dir_)
         add_file_handler(logger, fn_log)
     if flag_log_console:
         ch = logging.StreamHandler()
-        ch.setFormatter(_fmtr)
+        ch.setFormatter(_get_fmtr())
         logger.addHandler(ch)
     return logger
 
@@ -59,7 +69,7 @@ def add_file_handler(logger, logFilename=None):
     assert isinstance(logger, logging.Logger)
     ch = logging.FileHandler(logFilename, "a")
     # ch.setFormatter(logging._defaultFormatter) # todo may change to have same formatter as last handler of logger
-    ch.setFormatter(_fmtr)
+    ch.setFormatter(_get_fmtr())
     logger.addHandler(ch)
 
 

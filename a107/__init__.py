@@ -16,6 +16,10 @@ fn_log = "a107.log"
 # Logging level for the python logger
 import logging
 logging_level = logging.INFO
+# Logging format for the python logger
+logging_fmt = '[%(levelname)-8s] %(message)s'
+# Name for the python logger
+logging_name = "a107"
 
 from .config import *
 from .datetimefunc import *
