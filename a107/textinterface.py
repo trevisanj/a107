@@ -24,9 +24,9 @@ COLORED_DEBUG = fg("deep_pink_1a")
 def format_color(s, fg_=None, bg_=None, attrs=None):
     """Wraps over colored for convenience"""
     aa = []
-    if fg_ is not None: aa.append(fg(fg_))
-    if bg_ is not None: aa.append(bg(bg_))
-    if attrs is not None:
+    if fg_: aa.append(fg(fg_))
+    if bg_: aa.append(bg(bg_))
+    if attrs:
         if isinstance(attrs, str):
             attrs = [attrs]
         aa.extend([attr(attr_) for attr_ in attrs])
