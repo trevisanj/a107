@@ -21,6 +21,213 @@ COLORED_WARNING = fg("yellow")
 COLORED_DEBUG = fg("deep_pink_1a")
 
 
+########################################################################################################################
+# Methods that return list or str
+
+def format_slug(s, eye=None, fmt="list"):
+    """
+    Encloses string inside the guts of an ASCII-art [1] slug.
+    
+    Args:
+        s: str
+        eye: 0, 1, 2, or None. If None, will be random.
+        fmt: format of result. For possible values for this argument, see _validate_fmt()
+
+    Returns:
+        list, str etc., depending on fmt
+
+    References:
+        [1] http://ascii.co.uk/art/snail
+    """
+
+    _validate_fmt(fmt)
+
+    n = len(s)
+    a, b, c, d = (x*n for x in '  _"')
+    s_ = s  # .replace(" ", "-")
+
+    if eye is None:
+        eye = random.randint(0, 2)
+
+    z = "." if eye == 0 else "o" if eye == 1 else "O"
+    k = " "
+    ret = [
+    f'    {a}{z}  {z}',
+    f'     {b}\\/ ',
+    f'   _{c}_/|',
+    f' /´{k}{s_}{k}´/ ',
+    f'/+""{d}"´  ',
+    ]
+    return _list_or_str(ret, fmt)
+
+
+def format_underline(s, char="=", indents=0, fmt="list"):
+    """
+    Traces a dashed line below string
+
+    Args:
+        s: string
+        char:
+        indents: number of leading intenting spaces
+        fmt: format of result. For possible values for this argument, see _validate_fmt()
+
+    Returns:
+        list, str etc., depending on fmt
+
+    >>> print("\\n".join(format_underline("Life of João da Silva", "^", 2)))
+      Life of João da Silva
+      ^^^^^^^^^^^^^^^^^^^^^
+    """
+
+    _validate_fmt(fmt)
+
+    n = len(s)
+    ind = " " * indents
+    ret = ["{}{}".format(ind, s), "{}{}".format(ind, char*n)]
+    return _list_or_str(ret, fmt)
+
+
+def format_h(i, s, format="text", indents=0, fmt="list"):
+    return {1: format_h1, 2: format_h2, 3: format_h3, 4: format_h4, 4: format_h5}[i](s, format, indents, fmt)
+
+
+def format_h1(s, format="text", indents=0, fmt="list"):
+    """
+    Encloses string in format text
+
+    Args:
+        s: string
+        format: "text"/"markdown"/"rest"/"html"
+        indents: number of leading intenting spaces
+        fmt: format of result. For possible values for this argument, see _validate_fmt()
+
+    Returns:
+        list, str etc., depending on fmt
+
+    >>> print("\\n".join(format_h2("Header 1", indents=10)))
+              Header 1
+              --------
+
+    >>> print("\\n".join(format_h2("Header 1", "markdown", 0)))
+    ## Header 1
+    """
+
+    _validate_fmt(fmt)
+
+    _CHAR = "="
+    return _format_h_aux(s, format, indents, fmt, _CHAR, 1)
+
+
+def format_h2(s, format="text", indents=0, fmt="list"):
+    """format_h ~1~ 2"""
+    _validate_fmt(fmt)
+    _CHAR = "-"
+    return _format_h_aux(s, format, indents, fmt, _CHAR, 2)
+
+
+def format_h3(s, format="text", indents=0, fmt="list"):
+    """format_h ~1~ 3"""
+    _validate_fmt(fmt)
+    _CHAR = "~"
+    return _format_h_aux(s, format, indents, fmt, _CHAR, 3)
+
+
+def format_h4(s, format="text", indents=0, fmt="list"):
+    """format_h ~1~ 4"""
+    _validate_fmt(fmt)
+    _CHAR = "^"
+    return _format_h_aux(s, format, indents, fmt, _CHAR, 4)
+
+
+def format_h5(s, format="text", indents=0, fmt="list"):
+    """format_h ~1~ 5"""
+    _validate_fmt(fmt)
+    _CHAR = "5"
+    return _format_h_aux(s, format, indents, fmt, _CHAR, 5)
+
+
+def markdown_table(data, headers, fmt="list"):
+    """
+    Creates MarkDown table. Returns list of strings
+
+    Args:
+        data: [(cell00, cell01, ...), (cell10, cell11, ...), ...]
+        headers: sequence of strings: (header0, header1, ...)
+        fmt: format of result. For possible values for this argument, see _validate_fmt()
+
+    Returns:
+        list, str etc., depending on fmt
+    """
+
+    _validate_fmt(fmt)
+
+    maxx = [max([len(x) for x in column]) for column in zip(*data)]
+    maxx = [max(ll) for ll in zip(maxx, [len(x) for x in headers])]
+    mask = " | ".join(["%-{0:d}s".format(n) for n in maxx])
+
+    ret = [mask%tuple(headers)]
+
+    ret.append(" | ".join(["-"*n for n in maxx]))
+    for line in data:
+        ret.append(mask%tuple(line))
+    return _list_or_str(ret, fmt)
+
+
+def rest_table(data, headers, fmt="list"):
+    """
+    Creates reStructuredText table (grid format), allowing for multiline cells
+
+    Arguments:
+        data:  [((cell000, cell001, ...), (cell010, cell011, ...), ...), ...]
+        headers: sequence of strings: (header0, header1, ...)
+        fmt: format of result. For possible values for this argument, see _validate_fmt()
+
+    Returns:
+        list, str etc., depending on fmt
+
+    **Note** Tolerant to non-strings
+
+    **Note** Cells may or may not be multiline
+
+    >>> rest_table([["Eric", "Idle"], ["Graham", "Chapman"], ["Terry", "Gilliam"]], ["Name", "Surname"])
+    """
+
+    _validate_fmt(fmt)
+
+    num_cols = len(headers)
+    new_data, row_heights = expand_multirow_data(data)
+    new_data = [[str(x) for x in row] for row in new_data]
+    col_widths = [max([len(x) for x in col]) for col in zip(*new_data)]
+    col_widths = [max(cw, len(s)) for cw, s in zip(col_widths, headers)]
+
+    if any([x == 0 for x in col_widths]):
+        raise RuntimeError("Column widths ({}) has at least one zero".format(col_widths))
+
+    num_lines = sum(row_heights)  # line != row (rows are multiline)
+
+    # horizontal lines
+    hl0 = "+"+"+".join(["-"*(n+2) for n in col_widths])+"+"
+    hl1 = "+"+"+".join(["="*(n+2) for n in col_widths])+"+"
+
+    frmtd = ["{0:{1}}".format(x, width) for x, width in zip(headers, col_widths)]
+    ret = [hl0, "| "+" | ".join(frmtd)+" |", hl1]
+
+    i0 = 0
+    for i, row_height in enumerate(row_heights):
+        if i > 0:
+            ret.append(hl0)
+        for incr in range(row_height):
+            frmtd = ["{0:{1}}".format(x, width) for x, width in zip(new_data[i0+incr], col_widths)]
+            ret.append("| "+" | ".join(frmtd)+" |")
+        i0 += row_height
+
+    ret.append(hl0)
+    return _list_or_str(ret, fmt)
+
+
+########################################################################################################################
+# Other stuff
+
 def format_color(s, fg_=None, bg_=None, attrs=None):
     """Wraps over colored for convenience"""
     aa = []
@@ -45,165 +252,17 @@ def format_madyoda(s, happy=True):
     s2 = " ".join(words)
     return format_yoda(s, happy)
 
-
-def format_slug(s, eye=None):
-    """
-    Encloses string inside the guts of an ASCII-art [1] slug.
-    
-    Args:
-        s: str
-        eye: 0, 1, 2, or None. If None, will be random.
-
-    Returns:
-        list
-
-
-    References:
-        [1] http://ascii.co.uk/art/snail
-    """
-
-
-    n = len(s)
-    a, b, c, d = (x*n for x in '  _"')
-    s_ = s  # .replace(" ", "-")
-
-    if eye is None:
-        eye = random.randint(0, 2)
-
-    z = "." if eye == 0 else "o" if eye == 1 else "O"
-    k = " "
-    res = [
-    f'    {a}{z}  {z}',
-    f'     {b}\\/ ',
-    f'   _{c}_/|',
-    f' /´{k}{s_}{k}´/ ',
-    f'/+""{d}"´  ',
-    ]
-    return res
-
-
-def format_underline(s, char="=", indents=0):
-    """
-    Traces a dashed line below string
-
-    Args:
-        s: string
-        char:
-        indents: number of leading intenting spaces
-
-    Returns: list
-
-    >>> print("\\n".join(format_underline("Life of João da Silva", "^", 2)))
-      Life of João da Silva
-      ^^^^^^^^^^^^^^^^^^^^^
-    """
-
-    n = len(s)
-    ind = " " * indents
-    return ["{}{}".format(ind, s), "{}{}".format(ind, char*n)]
-
-
-def format_h(i, s, format="text", indents=0):
-    return {1: format_h1, 2: format_h2, 3: format_h3, 4: format_h4}[i](s, format, indents)
-
-
-def format_h1(s, format="text", indents=0):
-    """
-    Encloses string in format text
-
-    Args:
-        s: string
-        format: string starting with "text", "markdown", or "rest"
-        indents: number of leading intenting spaces
-
-    Returns: list
-
-    >>> print("\\n".join(format_h2("Header 1", indents=10)))
-              Header 1
-              --------
-
-    >>> print("\\n".join(format_h2("Header 1", "markdown", 0)))
-    ## Header 1
-    """
-
-    _CHAR = "="
-    if format.startswith("text"):
-        return format_underline(s, _CHAR, indents)
-    elif format.startswith("markdown"):
-        return ["# {}".format(s)]
-    elif format.startswith("rest"):
-        return format_underline(s, _CHAR, 0)
-
-
-def format_h2(s, format="text", indents=0):
-    """
-    Encloses string in format text
-
-    Args, Returns: see format_h1()
-
-    >>> print("\\n".join(format_h2("Header 2", indents=2)))
-      Header 2
-      --------
-
-    >>> print("\\n".join(format_h2("Header 2", "markdown", 2)))
-    ## Header 2
-    """
-
-    _CHAR = "-"
-    if format.startswith("text"):
-        return format_underline(s, _CHAR, indents)
-    elif format.startswith("markdown"):
-        return ["## {}".format(s)]
-    elif format.startswith("rest"):
-        return format_underline(s, _CHAR, 0)
-
-
-def format_h3(s, format="text", indents=0):
-    """
-    Encloses string in format text
-
-    Args, Returns: see format_h1()
-    """
-
-    _CHAR = "~"
-    if format.startswith("text"):
-        return format_underline(s, _CHAR, indents)
-    elif format.startswith("markdown"):
-        return ["### {}".format(s)]
-    elif format.startswith("rest"):
-        return format_underline(s, _CHAR, 0)
-
-
-def format_h4(s, format="text", indents=0):
-    """
-    Encloses string in format text
-
-    Args, Returns: see format_h1()
-    """
-
-    _CHAR = "^"
-    if format.startswith("text"):
-        return format_underline(s, _CHAR, indents)
-    elif format.startswith("markdown"):
-        return ["#### {}".format(s)]
-    elif format.startswith("rest"):
-        return format_underline(s, _CHAR, 0)
-
-
-def __format_genericlog(message, type, color):
-    return "{}{}{}:{} {}{}{}".format(color, attr("bold"), type, attr("reset"), color, message, attr("reset"))
-
 def format_error(s):
     """Standardized embellishment. Adds formatting to error message."""
-    return __format_genericlog(s, "Error", COLORED_ERROR)
+    return _format_genericlog(s, "Error", COLORED_ERROR)
 
 def format_warning(s):
     """Standardized embellishment. Adds formatting to warning message."""
-    return __format_genericlog(s, "Warning", COLORED_WARNING)
+    return _format_genericlog(s, "Warning", COLORED_WARNING)
 
 def format_debug(s):
     """Standardized embellishment. Adds formatting to warning message."""
-    return __format_genericlog(s, "Debug", COLORED_DEBUG)
+    return _format_genericlog(s, "Debug", COLORED_DEBUG)
 
 def print_error(s):
     """Prints string as error message."""
@@ -349,9 +408,17 @@ def menu(title, options, cancel_label="Cancel", flag_allow_empty=False, flag_can
   return option
 
 
-def format_box(title, ch="*"):
+def format_box(title, ch="*", fmt="list"):
     """
-    Encloses title in a box. Result is a list
+    Encloses title in a box.
+
+    Args:
+        title:
+        ch:
+        fmt: "list"/"str"
+
+    Returns:
+        list or str, depending on fmt
 
     >>> for line in format_box("Today's T.O.D.O. list"):
     ...     print(line)
@@ -359,11 +426,15 @@ def format_box(title, ch="*"):
     *** Today's T.O.D.O. list ***
     *****************************
     """
+
+    _validate_fmt(fmt)
+
     lt = len(title)
-    return [(ch * (lt + 8)),
-            (ch * 3 + " " + title + " " + ch * 3),
-            (ch * (lt + 8))
-           ]
+    ret = [(ch * (lt + 8)),
+           (ch * 3 + " " + title + " " + ch * 3),
+           (ch * (lt + 8))
+          ]
+    return _list_or_str(ret, fmt)
 
 
 def format_progress(i, n):
@@ -379,28 +450,8 @@ def format_progress(i, n):
     return '[{0!s}{1!s}] {2:d}/{3:d} - {4:.1f}%'.format(s_plus, s_point, i, n, fraction*100)
 
 
-# #################################################################################################
-# # Text table functions
-
-def markdown_table(data, headers):
-    """
-    Creates MarkDown table. Returns list of strings
-
-    Arguments:
-      data -- [(cell00, cell01, ...), (cell10, cell11, ...), ...]
-      headers -- sequence of strings: (header0, header1, ...)
-    """
-
-    maxx = [max([len(x) for x in column]) for column in zip(*data)]
-    maxx = [max(ll) for ll in zip(maxx, [len(x) for x in headers])]
-    mask = " | ".join(["%-{0:d}s".format(n) for n in maxx])
-
-    ret = [mask % tuple(headers)]
-
-    ret.append(" | ".join(["-"*n for n in maxx]))
-    for line in data:
-        ret.append(mask % tuple(line))
-    return ret
+# ######################################################################################################################
+# Text table functions
 
 
 def expand_multirow_data(data):
@@ -436,52 +487,6 @@ def expand_multirow_data(data):
         i0 += row_height
 
     return new_data, row_heights
-
-
-def rest_table(data, headers):
-    """
-    Creates reStructuredText table (grid format), allowing for multiline cells
-
-    Arguments:
-      data -- [((cell000, cell001, ...), (cell010, cell011, ...), ...), ...]
-      headers -- sequence of strings: (header0, header1, ...)
-
-    **Note** Tolerant to non-strings
-
-    **Note** Cells may or may not be multiline
-
-    >>> rest_table([["Eric", "Idle"], ["Graham", "Chapman"], ["Terry", "Gilliam"]], ["Name", "Surname"])
-    """
-
-    num_cols = len(headers)
-    new_data, row_heights = expand_multirow_data(data)
-    new_data = [[str(x) for x in row] for row in new_data]
-    col_widths = [max([len(x) for x in col]) for col in zip(*new_data)]
-    col_widths = [max(cw, len(s)) for cw, s in zip(col_widths, headers)]
-
-    if any([x == 0 for x in col_widths]):
-        raise RuntimeError("Column widths ({}) has at least one zero".format(col_widths))
-
-    num_lines = sum(row_heights) # line != row (rows are multiline)
-
-    # horizontal lines
-    hl0 = "+"+"+".join(["-"*(n+2) for n in col_widths])+"+"
-    hl1 = "+"+"+".join(["="*(n+2) for n in col_widths])+"+"
-
-    frmtd = ["{0:{1}}".format(x, width) for x, width in zip(headers, col_widths)]
-    ret = [hl0, "| "+" | ".join(frmtd)+" |", hl1]
-
-    i0 = 0
-    for i, row_height in enumerate(row_heights):
-        if i > 0:
-            ret.append(hl0)
-        for incr in range(row_height):
-            frmtd = ["{0:{1}}".format(x, width) for x, width in zip(new_data[i0+incr], col_widths)]
-            ret.append("| "+" | ".join(frmtd)+" |")
-        i0 += row_height
-
-    ret.append(hl0)
-    return ret
 
 
 def print_file(path_, width=80):
@@ -562,3 +567,43 @@ def kebab(s, width):
     paragraphs = [paragraph.replace("\n", " ") for paragraph in s.split("\n\n")]
     ret = "\n\n".join(["\n".join(textwrap.wrap(paragraph, width)) for paragraph in paragraphs])
     return ret
+
+
+# ######################################################################################################################
+# Auxiliary internal functions
+
+# The following functions are (or should be used) by all the functions in this API that return list or str
+
+def _validate_fmt(fmt):
+    validfmts = ["list", "str", "tuple", str, list, tuple]
+    if fmt not in validfmts:
+        raise ValueError(f"Invalid argument for value 'fmt': \"{fmt}\" (must be within {validfmts})")
+
+
+def _list_or_str(ret, fmt):
+    if fmt in ("str", str):
+        return "\n".join(ret)
+    elif fmt in ("tuple", tuple):
+        return tuple(ret)
+    return ret
+
+
+# Other stuff
+
+def _format_genericlog(message, type, color):
+    return "{}{}{}:{} {}{}{}".format(color, attr("bold"), type, attr("reset"), color, message, attr("reset"))
+
+
+def _format_h_aux(s, format, indents, fmt, char, i):
+    if format.startswith("text"):
+        return format_underline(s, char, indents, fmt)
+    elif format.startswith("markdown"):
+        ret = ["# {}".format(s)]
+        return _list_or_str(ret, fmt)
+    elif format.startswith("rest"):
+        return format_underline(s, char, 0, fmt)
+    elif format == "html":
+        return f"<h{i}>{s}</h{i}>"
+    else:
+        validformats = ["text", "markdown", "rest", "html"]
+        raise ValueError(f"Invalid value for argument 'format': \"{format}\" (must be within {validformats})")
