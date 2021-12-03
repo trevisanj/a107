@@ -259,6 +259,7 @@ _UNICODE_GREEK = (
 _UNICODE2GREEK = dict(_UNICODE_GREEK)
 _GREEK2UNICODE = dict([(x[1], x[0]) for x in _UNICODE_GREEK])
 
+
 def unicode2greek(s):
     """Converts unicode single code, e.g., '\u03A3' to Greek letter name, e.g. 'Sigma'"""
 
@@ -267,6 +268,7 @@ def unicode2greek(s):
         return s
 
     return _UNICODE2GREEK[s]
+
 
 def greek2unicode(s):
     """Converts Greek letter name, e.g., 'Sigma', to unicode character, e.g. '\u03A3' """
@@ -291,6 +293,7 @@ _INT_TO_SUPERSCRIPT = {
  8: "\u2078",
  9: "\u2079",
 }
+
 
 def int2superscript(i):
     """int2superscript(i) --> str"""
