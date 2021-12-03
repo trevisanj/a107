@@ -33,7 +33,7 @@ from .misc import *
 from .console import *
 from .fileio import *
 from .statementparsing import *
-from .filesqlitedb import *
+from .filesqlite import *
 from .asciichart import *
 from .npmaths import *
 from .maths import *

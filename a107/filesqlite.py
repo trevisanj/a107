@@ -6,6 +6,7 @@ class InvalidQuery(Exception): pass
 
 class NoData(Exception): pass
 
+
 def adapt_array(arr):
     """
     http://stackoverflow.com/a/31312102/190597 (SoulNibbler)
@@ -14,6 +15,7 @@ def adapt_array(arr):
     np.save(out, arr)
     out.seek(0)
     return sqlite3.Binary(out.read())
+
 
 def convert_array(text):
     out = io.BytesIO(text)
