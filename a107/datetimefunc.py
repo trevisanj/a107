@@ -9,7 +9,7 @@ import math, datetime, dateutil.parser, numpy as np
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
            "time2seconds", "seconds2time", "to_datetime", "str2ts", "iso8601_to_float",
            "float_to_iso8601", "dt2slug", "v_ts2dt", "to_timestamp", "tzinfo_tz", "utc",
-           "now_ts", "human2ts"]
+           "now_ts", "ts_now", "human2ts"]
 
 utc = datetime.timezone.utc
 
@@ -23,8 +23,11 @@ _FMTSTAMP = "%Y.%m.%d.%H.%M.%S"  # Format for dates and times that will be parts
 def now_str(tz=None):
     return datetime.datetime.strftime(datetime.datetime.now(tz), _FMTS)
 
-def now_ts():
+def ts_now():
     return dt2ts(datetime.datetime.now())
+
+# #compatibility
+now_ts = ts_now
 
 
 def tzinfo_tz(dt, tzinfo=None, tz=None):

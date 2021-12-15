@@ -1,11 +1,7 @@
 """Text interface routines - input/output for the terminal."""
 
-import textwrap
-import sys
-import random
-import os
+import textwrap, sys, random, os, argparse, numpy as np
 from colored import fg, bg, attr
-import argparse
 from .loggingaux import SmartFormatter
 
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
@@ -408,6 +404,17 @@ def menu(title, options, cancel_label="Cancel", flag_allow_empty=False, flag_can
   return option
 
 
+class Roller:
+    """Class to roll same string over and over."""
+    def __init__(self, s):
+        self.arr = np.fromiter(s, (str, 1))
+        self.n = len(s)
+
+    def get(self, size, start=0):
+        indexes = np.mod(np.arange(start, start+size), self.n)
+        return "".join(self.arr[indexes])
+
+
 def format_box(title, ch="*", fmt="list"):
     """
     Encloses title in a box.
@@ -428,11 +435,12 @@ def format_box(title, ch="*", fmt="list"):
     """
 
     _validate_fmt(fmt)
-
+    r = Roller(ch)
     lt = len(title)
-    ret = [(ch * (lt + 8)),
-           (ch * 3 + " " + title + " " + ch * 3),
-           (ch * (lt + 8))
+    s0 = r.get(lt+8)
+    ret = [s0,
+           (r.get(3) + " " + title + " " + r.get(3, lt+5)),
+           s0,
           ]
     return _list_or_str(ret, fmt)
 

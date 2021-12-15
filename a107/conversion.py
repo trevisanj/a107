@@ -8,7 +8,7 @@ __all__ = [
 "str2bool", "to_bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
 "module2dict", "unicode2greek",
 "greek2unicode", "make_code_readable", "int2superscript", "color2hex", "hex2color",
-"rowsheader2dictlist", "ffmt", "smartfloat"]
+"rowsheader2dictlist", "ffmt", "smartfloat", "sorp"]
 
 
 import math
@@ -306,6 +306,7 @@ def int2superscript(i):
 
 def smartfloat(f, maxsig=6, maxdec=10):
     """Float version of ffmt() (useful e.g. in order to let tabulate.tabulate() align floats)."""
+    if math.isinf(f): return f
     return float(ffmt(f, maxsig, maxdec))
 
 
@@ -325,6 +326,7 @@ def ffmt(f, maxsig=6, maxdec=10):
     >>> ffmt(12345678.123457)
     '12345700.'
     """
+    if math.isinf(f): return str(f)
     flag_neg = f < 0
     f = abs(f)
     s = f"{f:.{maxdec}f}"
@@ -347,3 +349,9 @@ def ffmt(f, maxsig=6, maxdec=10):
     if flag_neg:
         s = "-"+s
     return s
+
+
+def sorp(number):
+    """Singular OR Plural. Converts number to "" or "s"."""
+    if number == 1: return ""
+    return "s"
