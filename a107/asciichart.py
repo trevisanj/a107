@@ -6,14 +6,15 @@ import a107
 # TODO poor treatment of decimals (this is always a challenge)
 
 def asciichart(sequences, cfg=None, maxlines=100, legend=None, indent=0):
-    """Wraps plot() (forked from asciichartpy) to do a few things before calling it.
+    """Wraps plot() (forked from asciichartpy) to do a few things before calling it. plot() was also modified.
 
-    Actions:
+    Changes from original asciichart:
         - fixes y-axis numbers alignment
         - raises ValueError if asciichartpy.plot() generates more than maxlines lines of text, suggesting in the error
           message that cfg={"height": <height>, ...} be used
         - converts sequences to list when multiple sequences are passed (asciichartpy.plot() misinterprets multiple
           sequences passed as numpy arrays)
+        - allows for cfg: {"symbols": ["*", "x", "o", ...]}  to use different symbol(s) for each sequence
 
     Example:
     >>> import a107, math
@@ -95,7 +96,7 @@ def asciichart(sequences, cfg=None, maxlines=100, legend=None, indent=0):
 # 1.00  ┼     ╭────────╮          ╭────────╮          ╭────────╮          ╭────────╮          ╭────────╮          ╭────────╮          ╭────────╮          ╭────────╮
 # 0.00  ┼─────╯        ╰──────────╯        ╰──────────╯        ╰──────────╯        ╰──────────╯        ╰──────────╯        ╰──────────╯        ╰──────────╯        ╰
 
-# MODIFIED ORIGINAL asciichartpy CODE
+# MODIFIED original asciichartpy code
 
 """Module to generate ascii charts.
 
