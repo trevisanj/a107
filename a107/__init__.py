@@ -37,4 +37,5 @@ from .filesqlite import *
 from .asciichart import *
 from .npmaths import *
 from .maths import *
+from .htmlstuff import *
 del logging

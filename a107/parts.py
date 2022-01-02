@@ -2,9 +2,11 @@
 from functools import wraps
 from collections import OrderedDict
 from collections import defaultdict
+from colored import fg, bg, attr
+import shutil, pprint
 
 
-__all__ = ["AttrsPart", "froze_it", "keydefaultdict", "classproperty"]
+__all__ = ["AttrsPart", "froze_it", "keydefaultdict", "classproperty", "StupidRobotParty"]
 
 
 def froze_it(cls):
@@ -171,3 +173,38 @@ def classproperty(func):
         func = classmethod(func)
 
     return _ClassPropertyDescriptor(func)
+
+# ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐ ┌◎┴◎┐
+# STUPID ROBOT PARTY - use in multiple inheritance
+
+RESET = attr("reset")
+
+class StupidRobotParty:
+    """Some particular way of printing messages (for command-line interfaces)."""
+    def __init__(self):
+        self.happyrobotstyle = fg("white")+bg("black")+attr("bold")
+        self.happyletterstyle = fg("black")+bg("yellow")+attr("bold")
+        self.angryrobotstyle = fg("light_red")+bg("black")+attr("bold")
+        self.angryletterstyle = fg("black")+bg("light_red")+attr("bold")
+
+        # "robot move"
+        self._y = False 
+
+    def print_happy(self, *s):
+        s = " ".join(str(_) for _ in s)
+        face = "┌[∵]┘" if self._y else "└[∵]┐"
+        print(f"{self.happyrobotstyle}{face}{RESET} {self.happyletterstyle}{s}{RESET}")
+        self._y = not self._y
+
+    def print_angry(self, *s):
+        s = " ".join(str(_) for _ in s)
+        face = "└[∵]┘"
+        print(f"{self.angryrobotstyle}{face}{RESET} {self.angryletterstyle}{s}{RESET}")
+        self._y = not self._y
+
+    def print_happy_dict(self, d):
+        terminalwidth = shutil.get_terminal_size()[0]
+        pp = pprint.PrettyPrinter(width=terminalwidth)
+        s = pp.pformat(d)
+        for line in s.split("\n"):
+            self.print_happy(line)
