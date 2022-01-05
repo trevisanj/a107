@@ -203,7 +203,8 @@ def to_timestamp(arg, flag_utc_for_dates=False):
 
 
 def human2ts(arg):
-    """Similiar to to_timestamp(), but converts date-only strings using UTC timezone."""
+    """Similiar to to_timestamp(), but converts date-only strings using UTC timezone. None -> None"""
+    if arg is None: return arg
     return to_timestamp(arg, True)
 
 

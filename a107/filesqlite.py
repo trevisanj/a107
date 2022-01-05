@@ -2,34 +2,6 @@ import sqlite3, os, a107, io, numpy as np, pickle
 
 __all__ = ["FileSQLite", "InvalidQuery", "NoData"]
 
-class InvalidQuery(Exception): pass
-
-class NoData(Exception): pass
-
-
-def adapt_array(arr):
-    """
-    http://stackoverflow.com/a/31312102/190597 (SoulNibbler)
-    """
-    out = io.BytesIO()
-    np.save(out, arr)
-    out.seek(0)
-    return sqlite3.Binary(out.read())
-
-
-def convert_array(text):
-    out = io.BytesIO(text)
-    out.seek(0)
-    return np.load(out)
-
-
-def adapt_object(object):
-    return sqlite3.Binary(pickle.dumps(object))
-
-
-def convert_object(bytes_):
-    return pickle.loads(bytes_)
-
 
 class FileSQLite:
     """This is one layer over a SQLite database.
@@ -160,3 +132,33 @@ class FileSQLite:
         values = ",".join(["?"]*len(fieldnames))
         sql = f"insert into {tablename} ({fields}) values ({values})"
         self.conn.executemany(sql, rows)
+
+
+class InvalidQuery(Exception): pass
+
+
+class NoData(Exception): pass
+
+
+def adapt_array(arr):
+    """
+    http://stackoverflow.com/a/31312102/190597 (SoulNibbler)
+    """
+    out = io.BytesIO()
+    np.save(out, arr)
+    out.seek(0)
+    return sqlite3.Binary(out.read())
+
+
+def convert_array(text):
+    out = io.BytesIO(text)
+    out.seek(0)
+    return np.load(out)
+
+
+def adapt_object(object):
+    return sqlite3.Binary(pickle.dumps(object))
+
+
+def convert_object(bytes_):
+    return pickle.loads(bytes_)
