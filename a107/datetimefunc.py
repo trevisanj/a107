@@ -106,8 +106,24 @@ def dt2str(dt, flagSeconds=True):
     return dt.strftime((_FMTS if flagSeconds else _FMT) if isinstance(dt, datetime.datetime) else _FMT0)
 
 
-def dt2slug(dt):
-    """Converts datetime to a 'slug' str to embed in filenames, for example."""
+def dt2slug(dt=None):
+    """Converts datetime to a 'slug' str to embed in filenames, for example.
+
+    Args:
+        dt: defaults to now
+
+    Returns:
+        str (see example)
+
+    Example:
+
+        >>> import a107
+        >>> dt = datetime.datetime(2022, 1, 6, 10, 3, 59)
+        >>> a107.dt2slug(dt)
+        '2022.01.06.10.03.59'
+    """
+    if dt is None:
+        dt = datetime.datetime.now()
     return dt.strftime(_FMTSTAMP if isinstance(dt, datetime.datetime) else _FMT1)
 
 

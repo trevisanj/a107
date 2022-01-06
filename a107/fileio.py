@@ -12,7 +12,7 @@ import glob
 __all__ = [
     "rename_to_temp", "is_text_file", "add_bits_to_path", "add_parts_to_path", "crunch_dir",
     "slugify", "write_lf", "get_path", "new_filename", "temp_filename", "sequential_filename", "create_symlink", "which",
-    "ensure_path", "open_html"
+    "ensure_path", "open_html", "sequential_filename_with_dateslug"
 ]
 
 
@@ -171,6 +171,22 @@ def sequential_filename(prefix, extension=None, num_digits=4):
     curr += 1
     ret = fmt.format(prefix, curr, extension)
     return ret
+
+def sequential_filename_with_dateslug(prefix, extension):
+    """Convenience function to generate filenames.
+
+    Args:
+        prefix:
+        extension:
+
+    Return:
+        nice filename
+
+    Uses a combination of dt2slug() and sequential_filename() to make a new filename.
+    """
+    return sequential_filename(f"{prefix}.{a107.dt2slug()}", extension)
+
+
 
 
 _rename_to_temp_lock = Lock()
