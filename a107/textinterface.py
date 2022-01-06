@@ -445,17 +445,24 @@ def format_box(title, ch="*", fmt="list"):
     return _list_or_str(ret, fmt)
 
 
-def format_progress(i, n):
-    """Returns string containing a progress bar, a percentage, etc."""
+def format_progress(i, n, before=None):
+    """Returns string containing a progress bar, a percentage, etc.
+
+    Args:
+        i: in [0, n]
+        n: total number of "whatever needs to be done"
+        before: some label to print before
+    """
     if n == 0:
         fraction = 0
     else:
         fraction = float(i)/n
+    before_ = "" if not before else f"{before} "
     LEN_BAR = 25
     num_plus = int(round(fraction*LEN_BAR))
     s_plus = '+'*num_plus
     s_point = '.'*(LEN_BAR-num_plus)
-    return '[{0!s}{1!s}] {2:d}/{3:d} - {4:.1f}%'.format(s_plus, s_point, i, n, fraction*100)
+    return '{5}[{0!s}{1!s}] {2:d}/{3:d} - {4:.1f}%' .format(s_plus, s_point, i, n, fraction*100, before_)
 
 
 # ######################################################################################################################
