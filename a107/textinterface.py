@@ -238,7 +238,12 @@ def format_color(s, fg_=None, bg_=None, attrs=None):
 
 def format_yoda(s, happy=True):
     """The classic Yoda formatting."""
-    return "{4}{2}{0}|o_o|{0} -- {1}{3}".format("^" if happy else "v", s, fg("dark_olive_green_3a"), attr("reset"), attr("bold"))
+    color = "light_blue" if not happy else "dark_olive_green_3a"
+    return "{color}{bold}{ear}|o_o|{ear}{reset}{bold} -- {reset}{s}".format(ear="^" if happy else "v",
+                                                s=s,
+                                                color=fg(color),
+                                                reset=attr("reset"),
+                                                bold=attr("bold"))
 
 
 def format_madyoda(s, happy=True):
