@@ -38,4 +38,5 @@ from .asciichart import *
 from .npmaths import *
 from .maths import *
 from .htmlstuff import *
+from .autoclass import *
 del logging
