@@ -208,7 +208,7 @@ class Console(object):
 
                         if prdef:
                             _myprint(ret)
-                    except Exception as e:
+                    except BaseException as e:
                         _yoda("That work did not.", False)
                         _my_print_exception(e)
         except KeyboardInterrupt:
@@ -269,7 +269,7 @@ class Console(object):
 
         except ConsoleError as e:
             raise
-        except Exception as e:
+        except BaseException as e:
             a107.get_python_logger().exception("Error processing statement")
             raise
 
@@ -303,6 +303,7 @@ class ConsoleError(Exception):
 
     You can raise this if you don't want your error to print the traceback."""
     pass
+
 
 class InvalidMethodError(ConsoleError):
     """Raised at invalid method call."""

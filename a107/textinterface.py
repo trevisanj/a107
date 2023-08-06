@@ -547,9 +547,14 @@ def print_cfg(cfg):
             print(f"{attrname}={repr(getattr(cfg, attrname))}")
 
 
-def print_girafales(s):
-    """Formats tabulate.tabulate()-generated output in table style. I don't know why this method has this name."""
-    lines = s.split("\n"); n = len(lines)
+def format_girafales(s, fmt="list"):
+    """Formats tabulate.tabulate()-generated with colors."""
+
+    _validate_fmt(fmt)
+
+    ret = []
+    lines = s.split("\n")
+    n = len(lines)
     sepindex = [line.startswith("-") for line in lines].index(True)
     maxwidth = max(len(x) for x in lines if not x.endswith("-"))
     for i, line in enumerate(lines):
@@ -563,7 +568,17 @@ def print_girafales(s):
             a0 = attr("bold")
         elif i/2 != int(i/2):
             a0 = bg("dark_blue")
-        print(f"{a0}{line}{attr('reset')}")
+        ret.append(f"{a0}{line}{attr('reset')}")
+
+    return _list_or_str(ret, fmt)
+
+
+def print_girafales(s):
+    """Prints tabulate.tabulate()-generated with colors. I don't know why this method has this name."""
+
+
+    s_ = format_girafales(s, fmt="str")
+    print(s_)
 
 
 def fancilyquoted(s):
