@@ -301,7 +301,16 @@ def get_path(*args, module=a107):
 
 
 def ensure_path(path):
-    """Iteratively calls mkdir until full path exists."""
+    """
+    Iteratively calls mkdir until full path exists.
+
+    Args:
+        path: absolute or relative path ("~" character is allowed)
+
+    Returns:
+        whether any directory was created
+    """
+    ret = False
     path = os.path.abspath(os.path.expanduser(path))
     dd = [x for x in path.split(os.path.sep) if x]
     sofar = ""
@@ -309,6 +318,9 @@ def ensure_path(path):
         sofar += os.path.sep+d
         if not os.path.isdir(sofar):
             os.mkdir(sofar)
+            ret = True
+
+    return ret
 
 
 def open_html(html, prefix="a107temphtml"):
