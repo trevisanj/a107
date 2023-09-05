@@ -15,17 +15,25 @@ class FileSQLite:
         1) (main reason) to configure the connection (row factory etc.) automatically
         2) Only opens connection on demand; like this one has the opportunity to check whether the database exists and
            initialize if instead of creating an empty file as SQLite does
+
+    2023-09-04: check_same_thread is set to False and sqlite.threadsafety==3 is ensured
     """
 
     @property
     def conn(self):
         if self.__conn is None:
+            if not self.check_same_thread:
+                if sqlite3.threadsafety != 3:
+                    raise RuntimeError(f"check_same_thread is False, but sqlite.threadsafety is {sqlite3.threadsafety}. This is not safe!")
+
+
             sqlite3.register_adapter(np.ndarray, adapt_array)  # Converts np.array to TEXT when inserting
             sqlite3.register_converter("array", convert_array) # Converts TEXT to np.array when selecting
             # sqlite3.register_adapter(object, adapt_object)
             # sqlite3.register_converter("object", convert_object)
 
-            self.__conn = sqlite3.connect(self.path, detect_types=sqlite3.PARSE_DECLTYPES)
+            self.__conn = sqlite3.connect(self.path, detect_types=sqlite3.PARSE_DECLTYPES,
+                                          check_same_thread=self.check_same_thread)
             self.__conn.row_factory = sqlite3.Row
             # self.__conn.isolation_level = None
         return self.__conn
@@ -35,10 +43,11 @@ class FileSQLite:
         if self.__logger is None: self.__logger = a107.get_python_logger()
         return self.__logger
 
-    def __init__(self, path, logger=None, master=None):
+    def __init__(self, path, logger=None, master=None, check_same_thread=False):
         self.path = path
         self.__logger = logger
         self.__conn = None
+        self.check_same_thread = check_same_thread
         self.master = master
         if master is not None and logger is None and hasattr(master, "logger"):
             self.__logger = master.logger
@@ -49,7 +58,21 @@ class FileSQLite:
     # OVERRIDABLE
 
     def _do_create_database(self):
-        """Override this to create the database. Don't worry about commit()."""
+        """
+        Override this to create the database. Don't worry about commit().
+
+        Sample implementation:
+
+            def _do_create_database(self):
+                e = self.conn.execute
+
+                e("create table customer ("
+                  "id integer primary key,"
+                  "name text not null,"
+                  ")")
+
+
+        """
 
     # INTERFACE
 

@@ -1,11 +1,12 @@
 """Logging routines"""
+__all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger",
+           "log_exception_as_info", "log_exception_as_error", "ColorFormatter"]
 import logging, sys, traceback, os
 from argparse import *
 from .parts import *
 from .fileio import ensure_path
-__all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger",
-           "log_exception_as_info"]
-
+from colored import attr
+RESET = attr("RESET")
 
 def reset_logger():
     global _python_logger, _fmtr
@@ -122,3 +123,27 @@ def log_exception_as_info(logger, e, title):
     I found out that apparently the console is always polluted if we call logger.exception(), so I am calling
     ...info() instead."""
     logger.info(title+": "+str_exc(e)+"\n"+traceback.format_exc())
+
+
+def log_exception_as_error(logger, e, title):
+    """Logs exception as error. Should be called inside an 'except' clause
+
+    I found out that apparently the console is always polluted if we call logger.exception(), so I am calling
+    ...info() instead."""
+    logger.error(title+": "+str_exc(e)+"\n"+traceback.format_exc())
+
+
+
+class ColorFormatter(logging.Formatter):
+    def __init__(self, *args, colors, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        replace_tags = lambda level: (self._style._fmt
+                                      .replace("#color", colors.get(level, ""))
+                                      .replace("#reset", RESET))
+        levels = set(logging.getLevelNamesMapping().values())
+        self._fmts = {level: replace_tags(level) for level in levels}
+
+    def format(self, record):
+        self._style._fmt = self._fmts.get(record.levelno)
+        return super().format(record)
