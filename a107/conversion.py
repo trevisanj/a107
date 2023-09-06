@@ -3,16 +3,13 @@
 Note: date- and time- related conversion routines are in the datetimefunc module instead.
 """
 
-
 __all__ = [
 "str2bool", "to_bool", "bool2str", "chunk_string", "ordinal_suffix", "seconds2str",
 "module2dict", "unicode2greek",
 "greek2unicode", "make_code_readable", "int2superscript", "color2hex", "hex2color",
-"rowsheader2dictlist", "ffmt", "smartfloat", "sorp"]
+"rowsheader2dictlist", "ffmt", "smartfloat", "sorp", "split_cell", "join_cell"]
 
-
-import math
-import re
+import math, re, csv, io
 
 
 def rowsheader2dictlist(rows, header):
@@ -355,3 +352,31 @@ def sorp(number):
     """Singular OR Plural. Converts number to "" or "s"."""
     if number == 1: return ""
     return "s"
+
+
+def split_cell(s):
+    """Uses CSV reader to split string. Inverse of join_cell()
+
+    >>> split_cell('"same,item",other,yet another')
+    ['same,item', 'other', 'yet another']
+    """
+    if s is None: return []
+    reader = csv.reader([s], delimiter=",", skipinitialspace=True)  # quoting=csv.QUOTE_ALL, )
+    ret = [[x.strip() for x in row] for row in reader][0]
+    return ret
+
+
+def join_cell(list_):
+    '''
+    Uses CSV writer to convert list to str. Inverse of split_cell()
+
+    >>> join_cell(['a', 'A wise man said: "fuck it!"', ','])
+    'a,"A wise man said: ""fuck it!""",","'
+    >>> split_cell(join_cell(["a", 'A wise man said: "fuck it!"', ","]))
+    ['a', 'A wise man said: "fuck it!"', ',']
+    '''
+    with io.StringIO("") as buffer:
+        writer = csv.writer(buffer, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator="")
+        writer.writerow(list_)
+        ret = buffer.getvalue()
+    return ret

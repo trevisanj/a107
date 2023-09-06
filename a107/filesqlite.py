@@ -109,7 +109,8 @@ class FileSQLite:
     def get_scalar(self, *args, **kwargs):
         """Executes statement that presumably fetches one row containing one column."""
         onerow = self.execute(*args, **kwargs).fetchone()
-        if not onerow: raise NoData()
+        if not onerow:
+            raise NoData()
         if len(onerow) > 1: raise InvalidQuery("Statement has more than one column, why are you calling get_scalar()?")
         return onerow[0]
 
