@@ -39,4 +39,5 @@ from .npmaths import *
 from .maths import *
 from .htmlstuff import *
 from .autoclass import *
+from .datafile import *
 del logging
