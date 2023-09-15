@@ -70,8 +70,6 @@ class FileSQLite:
                   "id integer primary key,"
                   "name text not null,"
                   ")")
-
-
         """
 
     # INTERFACE
@@ -129,6 +127,8 @@ class FileSQLite:
     def get_singlerow(self, *args, **kwargs):
         """Executes statement that presumably fechers only one row."""
         _ret = self.execute(*args, **kwargs).fetchall()
+        if len(_ret) == 0:
+            raise NoData("Statement produced no data")
         if len(_ret) != 1:
             raise ValueError(f"Statement must produce number of rows ==1, not {len(_ret)}")
         return _ret[0]

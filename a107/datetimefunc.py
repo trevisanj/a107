@@ -63,10 +63,11 @@ def dt2ts(dt):
         >>> a107.dt2ts(datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
         10800.0  # It was already 3 am in the UK when the day of 1970-01-01 started in Brazil
         >>> a107.dt2ts(datetime.datetime(1970, 1, 1))
-        10800.0  # This is the result I get in Brazil (timezone-naïve cas works as if local)
+        10800.0  # This is the result I get in Brazil (timezone-naïve case works as if local)
 
     """
-    if dt.__class__ == datetime.date: dt = date2datetime(dt)
+    if dt.__class__ == datetime.date:
+        dt = date2datetime(dt)
     else: assert isinstance(dt, datetime.datetime)
     ret = dt.timestamp()
     return ret
@@ -144,9 +145,11 @@ def str2dt(s, tzinfo=None, flag_utc_for_dates=False):
         fmt = _FMT
     else:
         fmt = _FMT0
-        if flag_utc_for_dates: tzinfo = utc
+        if flag_utc_for_dates:
+            tzinfo = utc
     ret = datetime.datetime.strptime(s, fmt)
-    if tzinfo is not None: ret = ret.replace(tzinfo=tzinfo)
+    if tzinfo is not None:
+        ret = ret.replace(tzinfo=tzinfo)
     return ret
 
 
@@ -205,7 +208,8 @@ def to_timestamp(arg, flag_utc_for_dates=False):
         timestamp: float
 
     """
-    if isinstance(arg, float): return arg
+    if isinstance(arg, float):
+        return arg
     flag_try_float = False
     try:
         dt = to_datetime(arg, flag_utc_for_dates)
@@ -220,7 +224,8 @@ def to_timestamp(arg, flag_utc_for_dates=False):
 
 def human2ts(arg):
     """Similiar to to_timestamp(), but converts date-only strings using UTC timezone. None -> None"""
-    if arg is None: return arg
+    if arg is None:
+        return arg
     return to_timestamp(arg, True)
 
 
