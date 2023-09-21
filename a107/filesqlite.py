@@ -52,6 +52,7 @@ class FileSQLite:
         if master is not None and logger is None and hasattr(master, "logger"):
             self.__logger = master.logger
 
+
     def __del__(self):
         self.close()
 

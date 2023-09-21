@@ -129,7 +129,8 @@ def new_filename(prefix, extension=None, flag_minimal=True):
 
 def temp_filename(prefix, extension=None):
     """Wrapper for new_filename that filename without path nor extension from prefix and prepends '/tmp/  to it."""
-    return a107.new_filename(os.path.join("/tmp", os.path.splitext(os.path.split(prefix)[1])[0]), extension)
+    return a107.new_filename(os.path.join("/tmp", os.path.splitext(os.path.split(prefix)[1])[0]), extension,
+                             flag_minimal=False)
 
 
 def sequential_filename(prefix, extension=None, num_digits=4):
