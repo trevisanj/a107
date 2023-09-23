@@ -134,6 +134,18 @@ class FileSQLite:
             raise ValueError(f"Statement must produce number of rows ==1, not {len(_ret)}")
         return _ret[0]
 
+    def get_lod(self, *args, **kwargs):
+        """Executes select statement and converts result to List Of Dicts (LOD)."""
+        return [dict(row) for row in self.execute(*args, **kwargs)]
+
+    def get_lot(self, *args, **kwargs):
+        """Executes select statement and converts result to List Of Tuples (LOT)."""
+        return [tuple(row) for row in self.execute(*args, **kwargs)]
+
+    def get_lol(self, *args, **kwargs):
+        """Executes select statement and converts result to List Of Lists (LOL)."""
+        return [list(row) for row in self.execute(*args, **kwargs)]
+
     def execute(self, *args, **kwargs):
         return self.conn.execute(*args, **kwargs)
 
