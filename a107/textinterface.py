@@ -1,15 +1,15 @@
 """Text interface routines - input/output for the terminal."""
 
-import textwrap, sys, random, os, argparse, numpy as np
-from colored import fg, bg, attr
-from .loggingaux import SmartFormatter
-
 __all__ = ["format_h1", "format_h2", "format_h3", "format_h4",
            "format_error", "format_warning", "format_debug", "print_error", "menu", "format_progress", "markdown_table",
            "format_box", "yesno", "rest_table", "expand_multirow_data",
            "question", "format_slug", "print_file", "aargh", "format_yoda", "format_madyoda", "print_cfg",
-           "format_color", "print_girafales", "fancilyquoted", "format_h", "print_polluted", "kebab"]
+           "format_color", "print_girafales", "fancilyquoted", "format_h", "print_polluted", "kebab", "print_yoda"]
 
+import textwrap, sys, random, os, argparse, numpy as np, re
+from colored import fg, bg, attr
+from .loggingaux import SmartFormatter
+from dataclasses import dataclass
 
 NIND = 2  # Number of spaces per indentation level
 COLORED_ERROR = fg("salmon_1")
@@ -236,6 +236,9 @@ def format_color(s, fg_=None, bg_=None, attrs=None):
     return "".join(aa)+s+attr("reset")
 
 
+def print_yoda(*args, happy=True):
+    print(format_yoda(" ".join(args), happy))
+
 def format_yoda(s, happy=True):
     """The classic Yoda formatting."""
     color = "light_blue" if not happy else "dark_olive_green_3a"
@@ -420,33 +423,68 @@ class Roller:
         return "".join(self.arr[indexes])
 
 
-def format_box(title, ch="*", fmt="list"):
+def format_box(text, seq="*", lrwidth=1, fmt="list"):
     """
-    Encloses title in a box.
+    Encloses text in a box.
 
     Args:
-        title:
-        ch:
+        text: str, list or tuple
+        seq: sequence of characters, will iterate forever over this sequence
+        lrwidth: border width on the left and right
         fmt: "list"/"str"
 
     Returns:
         list or str, depending on fmt
 
-    >>> for line in format_box("Today's T.O.D.O. list"):
-    ...     print(line)
-    *****************************
-    *** Today's T.O.D.O. list ***
-    *****************************
+    >>> print(format_box("Today's TODO list", fmt=str))
+    *********************
+    * Today's TODO list *
+    *********************
+    
+    >>> print(format_box("Zero-th line\\nFirst line\\nSecond line", seq="_/-\", lrwidth=3, fmt=str))
+    _/-_/-_/-_/-_/-_/-_/
+    -_/ Zero-th line -_/
+    -_/ First line   -_/
+    -_/ Second line  -_/
+    -_/-_/-_/-_/-_/-_/-_
     """
 
+    def roller():
+        """Iterates forever through sequence"""
+
+        if not seq:
+            raise ValueError("Empty sequence")
+
+        i = 0
+        n = len(seq)
+        while True:
+            yield seq[i]
+            i += 1
+            if i == n:
+                i = 0
+
+    def tbborder():
+        """Returns top/bottom border"""
+
+        return "".join(next(r) for _ in range(totalwid))
+
+    def lrborder():
+        """Returns left/right border (single line"""
+
+        return "".join(next(r) for _ in range(lrwidth))
+
     _validate_fmt(fmt)
-    r = Roller(ch)
-    lt = len(title)
-    s0 = r.get(lt+8)
-    ret = [s0,
-           (r.get(3) + " " + title + " " + r.get(3, lt+5)),
-           s0,
-          ]
+
+    if isinstance(text, str):
+        text = text.split("\n")
+
+    wid = max(len(line) for line in text)
+    totalwid = wid+2*lrwidth+2
+
+    r = roller()
+
+    ret = [tbborder()] + [f"{lrborder()} {line.ljust(wid)} {lrborder()}" for line in text] + [tbborder()]
+
     return _list_or_str(ret, fmt)
 
 
@@ -592,16 +630,114 @@ def print_polluted(msg, numcols=100):
         else: print(ch*numcols)
 
 
-def kebab(s, width):
-    """Reformats paragraph(s) for given width.
+def kebab(s, width, left=""):
+    """Reformats paragraph(s) for given width, preserving indentation.
 
-    Single newlines are converted to spaces, then text wrap is applied. Double newlines are kept.
+    Args:
+        s: string
+        width: total width of output
+        left: optional left decoration, will be added before each line
 
-    This method does not tidy up extra spaces or newlines.
+
+    Recognizes the following types of list items:
+
+        - Text
+        * Text
+        1. Text
+        1) Text
+        a) Text
+        A) Text
+
     """
-    paragraphs = [paragraph.replace("\n", " ") for paragraph in s.split("\n\n")]
-    ret = "\n\n".join(["\n".join(textwrap.wrap(paragraph, width)) for paragraph in paragraphs])
+
+    @dataclass
+    class Paragraph:
+        @property
+        def n(self):
+            return len(self.lines)
+
+        lines: list = None
+        # Indentation at first line
+        ind0: int = 0
+        # Indentation at next lines
+        ind1: int = 0
+
+        def __post_init__(self):
+            if self.lines is None:
+                self.lines = []
+
+    # by chatgpt 3.5
+    def count_spaces_until_non_space(input_string):
+        count = 0
+        for char in input_string:
+            if char == ' ':
+                count += 1
+            else:
+                break
+        return count
+
+    def get_listind(line_):
+        """returns number of indents for second line of list item onwards"""
+        res = listexpr0.match(line_) or listexpr1.match(line_)
+        if not res:
+            return None
+        return len(res.group())
+
+    def close():
+        if para is not None:
+            paragraphs.append(para)
+
+    def empty():
+        close()
+        paragraphs.append(Paragraph())
+
+    def new(*args):
+        close()
+        return Paragraph(*args)
+
+    listexpr0 = re.compile(r"^(\s*[-*]\s)")
+    listexpr1 = re.compile(r"^(\s*[1234567890A-Za-z][1234567890]*[.)]\s)")
+
+    # parsing
+    lines = s.split("\n")+[""]
+    paragraphs = []  # paragraphs
+    para = None
+    para = new()
+    for line in lines:
+        line = line.rstrip()
+        if not line:
+            para = empty()
+            continue
+
+        ind0 = count_spaces_until_non_space(line)
+        line_ = line[ind0:]
+        ind1 = get_listind(line_)
+        is_listitem = ind1 is not None
+
+        if is_listitem or not para:
+            para = new([line_], ind0, ind0 if not is_listitem else ind1)
+        else:
+            para.lines.append(line_)
+    close()
+
+    # rendering
+    INDCHAR = " "
+    lines = [textwrap.fill(" ".join(para.lines),
+                           width=width-len(left),
+                           initial_indent=INDCHAR*para.ind0,
+                           subsequent_indent=INDCHAR*para.ind1,
+                           )
+             for para in paragraphs]
+
+
+    ret = "\n".join(lines)
+
+    if left:
+        ret = "\n".join([f"{left}{line}" for line in ret.split("\n")])
+
     return ret
+
+
 
 
 # ######################################################################################################################
