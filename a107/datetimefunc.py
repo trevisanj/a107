@@ -9,7 +9,7 @@ import math, datetime, dateutil.parser, numpy as np
 __all__ = ["now_str", "date2datetime", "dt2ts", "ts2dt", "dt2str", "str2dt", "ts2str",
            "time2seconds", "seconds2time", "to_datetime", "str2ts", "iso8601_to_float",
            "float_to_iso8601", "dt2slug", "v_ts2dt", "to_timestamp", "tzinfo_tz", "utc",
-           "now_ts", "ts_now", "to_ts_utc"]
+           "now_ts", "ts_now", "to_ts_utc", "human2ts"]
 
 utc = datetime.timezone.utc
 
@@ -217,6 +217,7 @@ def to_timestamp(arg, tzinfo=None):
         ret = dt2ts(dt)
     return ret
 
+human2ts = to_timestamp
 
 def to_ts_utc(arg):
     return to_timestamp(arg, utc)

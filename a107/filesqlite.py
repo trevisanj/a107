@@ -75,9 +75,13 @@ class FileSQLite:
 
     # INTERFACE
 
+    def total_changes(self):
+        return self.conn.total_changes
+
     def close(self):
         if self.__conn:
-            self.__conn.close(); self.__conn = None
+            self.__conn.close()
+            self.__conn = None
 
     def create_database(self, flag_overwrite=False):
         """Creates database if it does not exist or if forced overwriting."""

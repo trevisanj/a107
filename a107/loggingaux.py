@@ -1,6 +1,6 @@
 """Logging routines"""
 __all__ = ["get_python_logger", "add_file_handler", "reset_logger", "LogTwo", "SmartFormatter", "str_exc", "get_new_logger",
-           "log_exception_as_info", "log_exception_as_error", "ColorFormatter"]
+           "log_exception_as_info", "log_exception_as_error", "ColorFormatter", "stre"]
 import logging, sys, traceback, os
 from argparse import *
 from .parts import *
@@ -114,6 +114,8 @@ class SmartFormatter(RawDescriptionHelpFormatter):
 def str_exc(E):
     """Generates a string from an Exception"""
     return "{0!s}: {1!s}".format(E.__class__.__name__, str(E))
+
+stre = str_exc
 
 format_exc = str_exc
 
