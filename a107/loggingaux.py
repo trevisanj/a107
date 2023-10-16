@@ -22,7 +22,7 @@ def _get_fmtr():
         _fmtr = logging.Formatter(a107.logging_fmt)
     return _fmtr
 
-def get_python_logger(name=None):
+def get_python_logger(name=None, fn_log=None):
     """Returns logger to receive Python messages.
 
     At first call, _python_logger is created. At subsequent calls, _python_logger is returned. 
@@ -32,7 +32,7 @@ def get_python_logger(name=None):
     import a107
     global _python_logger
     if _python_logger is None:
-        _python_logger = get_new_logger(name=name)
+        _python_logger = get_new_logger(name=name, fn_log=fn_log)
 
     return _python_logger
 
