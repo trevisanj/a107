@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="198f81f3-5a7e-4d4a-8456-85fd4dd3cfab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a107/filesqlite.py" beforeDir="false" afterPath="$PROJECT_DIR$/a107/filesqlite.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +105,7 @@
   <component name="RunManager" selected="Python tests.Doctest join_cell">
     <configuration name="qwe" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="a107" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -125,6 +127,7 @@
     </configuration>
     <configuration name="Doctest join_cell" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="a107" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -143,6 +146,7 @@
     </configuration>
     <configuration name="Doctest split_cell" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="a107" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -170,7 +174,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-25b551b672a6-fa3c6e52b29f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.6745.319" />
+        <option value="bundled-python-sdk-8715aeb49228-b3938847d04f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11361.11" />
       </set>
     </attachedChunks>
   </component>

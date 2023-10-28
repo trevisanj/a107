@@ -167,12 +167,23 @@ class FileSQLite:
 
     def insert_from_dicts(self, tablename, dicts):
         """Inserts many rows from list of dicts. Field names are taken from first dict."""
+
         fieldnames = list(dicts[0].keys())
         rows = (tuple(row.values()) for row in dicts)
         fields = ", ".join(fieldnames)
         values = ",".join(["?"]*len(fieldnames))
         sql = f"insert into {tablename} ({fields}) values ({values})"
-        self.conn.executemany(sql, rows)
+        return self.conn.executemany(sql, rows)
+
+    def insert_from_dict(self, tablename, dict_):
+        """Inserts rows using dictionary for fieldnames and values."""
+
+        fieldnames = list(dict_.keys())
+        row = tuple(dict_.values())
+        fields = ", ".join(fieldnames)
+        values = ",".join(["?"]*len(fieldnames))
+        sql = f"insert into {tablename} ({fields}) values ({values})"
+        return self.conn.execute(sql, row)
 
 
 class InvalidQuery(Exception): pass
