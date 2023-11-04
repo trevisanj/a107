@@ -75,7 +75,7 @@ def asciichart(sequences, cfg=None, maxlines=100, legend=None, indent=0):
 
     lines = text.split("\n")
     if len(lines) > maxlines:
-        raise ValueError(f"Your chart has more than {maxlines} of text; maybe you would like to specify cfg['height']?")
+        raise ValueError(f"Your chart has more than {maxlines} lines of text; maybe you would like to specify cfg['height']?")
     text = fix_asciichart(lines)
     if legend is not None:
         ll = []
