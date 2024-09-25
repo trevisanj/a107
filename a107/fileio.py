@@ -127,9 +127,19 @@ def new_filename(prefix, extension=None, flag_minimal=True):
     return ret
 
 
+def temp_dir():
+    """Returns path to temporary directory ~/tmp. If directory does not exist, creates it
+
+    Firefox in my Ubuntu is installed through Snap and cannot see the /tmp directory, so a directory inside home
+    is guaranteed
+    """
+    ret = os.path.expanduser("~/tmp")
+    ensure_path(ret)
+    return ret
+
 def temp_filename(prefix, extension=None):
     """Wrapper for new_filename that filename without path nor extension from prefix and prepends '/tmp/  to it."""
-    return a107.new_filename(os.path.join("/tmp", os.path.splitext(os.path.split(prefix)[1])[0]), extension,
+    return a107.new_filename(os.path.join(temp_dir(), os.path.splitext(os.path.split(prefix)[1])[0]), extension,
                              flag_minimal=False)
 
 
